@@ -73,3 +73,73 @@ img {
  * YOUR CODE HERE
  */
 
+body {
+    font-family: 'Ubuntu Condensed', sans-serif;
+    background-image: url('./images/concrete_seamless.png')
+}
+
+#usrPassContainer {
+    width: 600px;
+    margin: 200px auto;
+    text-align: center;
+}
+
+#usrPass {
+    margin: 0px 20px;
+}
+
+#usrPass:focus {
+    outline: 3px dashed grey;
+}
+
+#submit {
+    margin-top: 20px;
+    border-radius: 20%;
+    border: none;
+}
+
+#switchContainer{
+    margin-top: 200px;
+}
+
+#switchText {
+
+}
+
+#logOut {
+    width: 200px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
