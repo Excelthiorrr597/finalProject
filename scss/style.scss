@@ -93,6 +93,15 @@ body {
     outline: 3px dashed grey;
 }
 
+#email {
+    margin: 20px;
+    width: 250px;
+}
+
+#email:focus {
+    outline: 3px dashed grey;
+}
+
 #submit {
     margin-top: 20px;
     border-radius: 20%;

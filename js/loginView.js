@@ -16,23 +16,35 @@ var SignUp = React.createClass({
 
 	_handleClick: function() {
 		var username = this.refs.username.getDOMNode().value,
-			password = this.refs.password.getDOMNode().value
+			password = this.refs.password.getDOMNode().value,
+			email = this.refs.email.getDOMNode().value,
+			consumer = this.refs.consumer.getDOMNode().value,
+			venue = this.refs.venue.getDOMNode().value,
+			type = ''
 
 		this.refs.username.getDOMNode().value = ''
 		this.refs.password.getDOMNode().value = ''
+		this.refs.email.getDOMNode().value = ''
 
-		this.props.signUpUser(username,password)
+		if (this.refs.consumer.getDOMNode().checked) {type = consumer}
+		else if (this.refs.venue.getDOMNode().checked) {type = venue}
+		else {alert('Please select Consumer or Venue'); return}
+
+
+		this.props.signUpUser(username,password,email,type)
 	},
 
 	_handleEnter: function(event) {
 		if (event.which === 13) {
-			var password = event.target.value,
-				username = this.refs.username.getDOMNode().value
+			var password = this.refs.password.getDOMNode().value,
+				username = this.refs.username.getDOMNode().value,
+				email = this.refs.email.getDOMNode().value
 
-			event.target.value = ''
+			this.refs.password.getDOMNode().value =''
 			this.refs.username.getDOMNode().value = ''
+			this.refs.email.getDOMNode().value =''
 
-			this.props.signUpUser(username,password)
+			this.props.signUpUser(username,password,email)
 		}
 	},
 
@@ -45,9 +57,17 @@ var SignUp = React.createClass({
 			<div id='usrPassContainer'>
 				<p>First Time User? Sign Up Here!</p>
 				<div>
-					<input id='usrPass' type='text' placeholder='Enter Username' ref='username'/>
+					<input id='usrPass' type='text' placeholder='Enter Username' ref='username' onKeyPress={this._handleEnter}/>
 					<input id='usrPass' type='password' placeholder='Enter Password' ref='password' onKeyPress={this._handleEnter}/>
 				</div>
+				<div>
+					<input id='email' type='text' placeholder='Enter Email' ref='email' onKeyPress={this._handleEnter}/>
+				</div>
+				<form>
+					<input type='radio' name='type' value='consumer' ref='consumer'>Consumer</input>
+					<br/>
+					<input type='radio' name='type' value='venue' ref='venue'>Venue</input>
+				</form>
 				<input id='submit' type='submit' onClick={this._handleClick}/>
 				<div id='switchContainer'>
 					<p id='switchText'><i>Already have an account? Click below to Log In</i></p>

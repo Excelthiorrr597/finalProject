@@ -25,7 +25,8 @@ var ProjectRouter = Backbone.Router.extend({
 	routes: {
 		'login':'showLogInView',
 		'logout':'logOutUser',
-		'home':'showHomeView',
+		'consumer/home':'showHomeView',
+		'venue/home':'showHomeView',
 		'*default':'showHomeView'
 	},
 
@@ -52,20 +53,32 @@ var ProjectRouter = Backbone.Router.extend({
 			'password':password
 		})
 		newUser.logIn().then(function(){
-			location.hash = 'home'
+			if (Parse.User.current().get('type') === 'consumer') {
+				location.hash = 'consumer/home'
+			}
+			if (Parse.User.current().get('type') === 'venue') {
+				location.hash = 'venue/home'
+			}
 		}, function(err){
 			alert('Username/Password combination not in the database')
 		})
 	},
 
-	signUpUser: function(username,password) {
+	signUpUser: function(username,password,email,type) {
 		var newUser = new Parse.User()
 		newUser.set({
 			'username':username,
-			'password':password
+			'password':password,
+			'type':type,
+			'email':email
 		})
 		newUser.signUp().then(function(){
-			location.hash = 'home'
+			if (type === 'consumer') {
+				location.hash = 'consumer/home'
+			}
+			if (type === 'venue') {
+				location.hash = 'venue/home'
+			}			
 		}, function(err){
 			alert('Username already taken')
 		})
