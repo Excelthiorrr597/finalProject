@@ -6,8 +6,15 @@ var ConsumerView = React.createClass({
 		location.hash = 'logout'
 	},
 
-	_showEvents: function() {
-		console.log('showing events')
+	_handleEnter: function(event) {
+		if (event.which === 13) {
+			var query = event.target.value
+			location.hash = `consumer/search/${query}`
+		}
+	},
+
+	_showSavedEvents: function() {
+		location.hash = 'consumer/saved'		
 	},
 
 	render: function() {
@@ -17,8 +24,8 @@ var ConsumerView = React.createClass({
 					<input id='logOutButton' type='submit' value='Log Out' onClick={this._logOut} />
 				</div>
 				<div id='consumerMenu'>
-					<input id='eventSearch' type='text' placeholder='Search for Events' onKeyPress={this._handleEnter}/>
-					<input id='eventsButton' type='submit' value='View Saved Events' onClick={this._showEvents} />
+					<input id='consumerEventSearch' type='text' placeholder='Search for Events' onKeyPress={this._handleEnter}/>
+					<input id='consumerEventsButton' type='submit' value='View Saved Events' onClick={this._showSavedEvents} />
 				</div>
 			</div>
 			)

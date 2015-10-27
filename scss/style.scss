@@ -79,6 +79,14 @@ body {
     color: grey;
 }
 
+h2 {
+    color: grey;
+}
+
+input {
+    outline: none;
+}
+
 #usrPassContainer {
     width: 600px;
     margin: 200px auto;
@@ -143,11 +151,11 @@ body {
     text-align: center;
 }
 
-#eventSearch:focus {
+#consumerEventSearch:focus {
     outline: 3px dashed grey;
 }
 
-#eventsButton {
+#consumerEventsButton {
     border-style: none;
     border-radius: 20%;
     color: white;
@@ -156,9 +164,28 @@ body {
     display: block;
 }
 
+#venueMenu {
+    width: 400px;
+    margin: 100px auto;
+    text-align: center;
+}
 
+#venueNewEventButton {
+    border-style: none;
+    border-radius: 20%;
+    color: white;
+    background-color: slategrey;
+    margin: 10px auto;
+}
 
-
+#venueSavedEventButton {
+    border-style: none;
+    border-radius: 20%;
+    color: white;
+    background-color: slategrey;
+    margin: 0 auto;
+    display: block;
+}
 
 
 

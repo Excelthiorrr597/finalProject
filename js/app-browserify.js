@@ -27,14 +27,26 @@ var ProjectRouter = Backbone.Router.extend({
 		'login':'showLogInView',
 		'logout':'logOutUser',
 		'consumer/home':'showConsumerView',
+		'consumer/search/:query':'showConsumerSearchView',
+		'consumer/saved':'showConsumerEntries',
 		'venue/home':'showVenueView',
-		'*default':'showLogInView'
+		'venue/new':'showVenueNewEntry',
+		'venue/saved': 'showVenueEntries',
+		'*default':'showConsumerView'
 	},
 
 	logOutUser: function() {
 		console.log('logging user out')
 		Parse.User.logOut()
 		location.hash = 'login'
+	},
+
+	showConsumerEntries: function() {
+		console.log('showing consumer entries')
+	},
+
+	showConsumerSearchView: function(query) {
+		console.log('showing search view')
 	},
 
 	showConsumerView: function() {
@@ -45,6 +57,15 @@ var ProjectRouter = Backbone.Router.extend({
 	showLogInView: function() {
 		console.log('showing login view')
 		React.render(<LogInView logInUser={this.logInUser} signUpUser={this.signUpUser}/>, document.querySelector('#container'))
+	},
+
+	showVenueEntries: function() {
+		console.log('showing saved entries')
+	},
+
+	showVenueNewEntry: function() {
+		console.log('showing new entry')
+
 	},
 
 	showVenueView: function() {
@@ -92,6 +113,11 @@ var ProjectRouter = Backbone.Router.extend({
 
 	initialize: function(){
 		if (!Parse.User.current()) location.hash = 'login'
+		if (Parse.User.current()) {
+			if (Parse.User.current().get('type') === 'venue') {
+				location.hash = 'venue/home'
+			}
+		}
 		console.log('initializing router')
 		Backbone.history.start()
 	}
