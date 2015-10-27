@@ -10,7 +10,7 @@ var HomeView = React.createClass({
 	render: function() {
 		return (
 			<div id='logOut'>
-				<input type='submit' value='Log Out' onClick={this._logOut} />
+				<input id='logOutButton' type='submit' value='Log Out' onClick={this._logOut} />
 			</div>
 			)
 	}
