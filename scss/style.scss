@@ -131,6 +131,31 @@ body {
     background-color: slategrey;
 }
 
+#consumerView {
+    width: 700px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#consumerMenu{
+    width: 400px;
+    margin: 100px auto;
+    text-align: center;
+}
+
+#eventSearch:focus {
+    outline: 3px dashed grey;
+}
+
+#eventsButton {
+    border-style: none;
+    border-radius: 20%;
+    color: white;
+    background-color: slategrey;
+    margin: 100px auto;
+    display: block;
+}
+
 
 
 

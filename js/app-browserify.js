@@ -12,7 +12,8 @@ console.log('loaded javascript')
 window.p = Parse
 
 import LogInView from './loginView.js'
-import HomeView from './homeView.js'
+import ConsumerView from './consumerView.js'
+import VenueView from './venueView.js'
 
 var APP_ID = '2TotJaout7xh2sVGRrYSQnwVmc1k7CL6qKPolcQf',
 	JS_KEY = '2mmibCcmnly9cgCjDdGojsFpWEiBkoEfT3HUcN2Q',
@@ -25,9 +26,9 @@ var ProjectRouter = Backbone.Router.extend({
 	routes: {
 		'login':'showLogInView',
 		'logout':'logOutUser',
-		'consumer/home':'showHomeView',
-		'venue/home':'showHomeView',
-		'*default':'showHomeView'
+		'consumer/home':'showConsumerView',
+		'venue/home':'showVenueView',
+		'*default':'showLogInView'
 	},
 
 	logOutUser: function() {
@@ -36,14 +37,19 @@ var ProjectRouter = Backbone.Router.extend({
 		location.hash = 'login'
 	},
 
-	showHomeView: function() {
-		console.log('showing home view')
-		React.render(<HomeView />, document.querySelector('#container'))
+	showConsumerView: function() {
+		console.log('showing consumer view')
+		React.render(<ConsumerView />, document.querySelector('#container'))
 	},
 
 	showLogInView: function() {
 		console.log('showing login view')
 		React.render(<LogInView logInUser={this.logInUser} signUpUser={this.signUpUser}/>, document.querySelector('#container'))
+	},
+
+	showVenueView: function() {
+		console.log('showing venue view')
+		React.render(<VenueView />, document.querySelector('#container'))
 	},
 
 	logInUser: function(username,password)	{

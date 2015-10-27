@@ -1,5 +1,4 @@
-let React = require('react'),
-	Parse = require('parse')
+let React = require('react')
 
 var LogInView = React.createClass({
 

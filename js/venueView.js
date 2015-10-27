@@ -1,7 +1,6 @@
-let React = require('react'),
-	Parse = require('parse')
+let React = require('react')
 
-var HomeView = React.createClass({
+var VenueView = React.createClass({
 
 	_logOut: function() {
 		location.hash = 'logout'
@@ -16,4 +15,4 @@ var HomeView = React.createClass({
 	}
 })
 
-export default HomeView
+export default VenueView
