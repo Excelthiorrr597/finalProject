@@ -16,6 +16,7 @@ import ConsumerView from './consumerView.js'
 import VenueView from './venueView.js'
 import VenueNewEntry from './venueNewEntry.js'
 import VenueProfile from './venueProfile.js'
+import VenueSaved from './venueSaved.js'
 
 var APP_ID = '2TotJaout7xh2sVGRrYSQnwVmc1k7CL6qKPolcQf',
 	JS_KEY = '2mmibCcmnly9cgCjDdGojsFpWEiBkoEfT3HUcN2Q',
@@ -76,6 +77,13 @@ var ProjectRouter = Backbone.Router.extend({
 
 	showVenueEntries: function() {
 		console.log('showing saved entries')
+		var query = new Parse.Query(Event)
+		query.equalTo('venueId',Parse.User.current().id)
+		query.find({
+			success: function(events) {
+				React.render(<VenueSaved events={events}/>,document.querySelector('#container'))
+			}
+		})
 	},
 
 	showVenueNewEntry: function() {
@@ -94,12 +102,10 @@ var ProjectRouter = Backbone.Router.extend({
 	},
 
 	updateVenueProfile: function(name,add1,add2,city,state,zip) {
-		console.log("oh ahi")
 		var query = new Parse.Query(Profile)
 		query.equalTo("venueId", Parse.User.current().id)
 		query.find({
 			success: function(profile) {
-				window.r = profile
 				if (profile.length !== 0) {
 					var update = profile[0]
 					update.set({
@@ -116,7 +122,6 @@ var ProjectRouter = Backbone.Router.extend({
 					})
 				}
 				else {
-					window.r = profile
 					var profile = new Profile()
 					profile.set({
 						'name':name,

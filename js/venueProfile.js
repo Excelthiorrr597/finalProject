@@ -29,6 +29,10 @@ var VenueProfile = React.createClass({
 			alert('Please Enter City')
 			return
 		}
+		if (!state) {
+			alert('Please Enter State')
+			return
+		}
 		if (!zip) {
 			alert('Please Enter Zip')
 			return

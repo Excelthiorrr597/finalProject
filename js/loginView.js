@@ -74,7 +74,7 @@ var SignUp = React.createClass({
 					<br/>
 					<input type='radio' name='type' value='venue' ref='venue'>Venue</input>
 				</form>
-				<input id='submit' type='submit' onClick={this._handleClick}/>
+				<input id='usrPassSubmit submit' type='submit' onClick={this._handleClick}/>
 				<div id='switchContainer'>
 					<p id='switchText'><i>Already have an account? Click below to Log In</i></p>
 					<input id='submit' type='submit' value='Log In' onClick={this._logIn}/>
