@@ -2,7 +2,11 @@ let React = require('react')
 
 var VenueView = React.createClass({
 
-	_enterEventData: function() {
+	_editProfileView: function() {
+		location.hash = 'venue/profile'
+	},
+
+	_enterEventView: function() {
 		location.hash = 'venue/new'
 	},
 
@@ -22,7 +26,8 @@ var VenueView = React.createClass({
 				</div>
 				<div id='venueMenu'>
 					<h2>What can I do for you?</h2>
-					<input id='venueNewEventButton' type='submit' value='Enter New Event' onClick={this._enterEventData} />
+					<input id='venueProfileEditButton' type='submit' value='Edit Profile' onClick={this._editProfileView} />
+					<input id='venueNewEventButton' type='submit' value='Enter New Event' onClick={this._enterEventView} />
 					<input id='venueSavedEventButton' type='submit' value='View/Edit Saved Events' onClick={this._viewSavedEvents} />
 				</div>
 			</div>

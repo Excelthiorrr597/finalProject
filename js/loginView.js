@@ -37,13 +37,20 @@ var SignUp = React.createClass({
 		if (event.which === 13) {
 			var password = this.refs.password.getDOMNode().value,
 				username = this.refs.username.getDOMNode().value,
-				email = this.refs.email.getDOMNode().value
+				email = this.refs.email.getDOMNode().value,
+				consumer = this.refs.consumer.getDOMNode().value,
+				venue = this.refs.venue.getDOMNode().value,
+				type = ''
 
 			this.refs.password.getDOMNode().value =''
 			this.refs.username.getDOMNode().value = ''
 			this.refs.email.getDOMNode().value =''
 
-			this.props.signUpUser(username,password,email)
+			if (this.refs.consumer.getDOMNode().checked) {type = consumer}
+			else if (this.refs.venue.getDOMNode().checked) {type = venue}
+			else {alert('Please select Consumer or Venue'); return}
+
+			this.props.signUpUser(username,password,email,type)
 		}
 	},
 

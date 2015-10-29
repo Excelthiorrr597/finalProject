@@ -168,34 +168,56 @@ input {
     width: 400px;
     margin: 100px auto;
     text-align: center;
+    h2 {
+        margin-bottom: 50px;
+    }
 }
 
-#venueNewEventButton {
+#venueProfileEditButton,#venueNewEventButton,#venueSavedEventButton {
     border-style: none;
     border-radius: 20%;
     color: white;
     background-color: slategrey;
     margin: 10px auto;
+    display: block;
 }
 
-#venueSavedEventButton {
+#newEventWrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    input {
+        margin: 20px;
+    }
+}
+
+#eventTitle,#eventGuests {
+    display: block;
+    width: 500px;
+}
+
+#eventDate {
+    display: block;
+}
+
+#eventProgram,#eventNotes {
+    display: block;
+    min-height: 200px;
+    width: 500px;
+    margin-left: 20px;
+}
+
+#backButton,#eventSubmit,#profileSubmit {
     border-style: none;
     border-radius: 20%;
     color: white;
     background-color: slategrey;
-    margin: 0 auto;
-    display: block;
+    margin: 20px;
 }
 
-
-
-
-
-
-
-
-
-
+#eventSubmitBox,#profileSubmitBox {
+    text-align: right;
+}
 
 
 
