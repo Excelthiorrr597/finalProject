@@ -1,23 +1,17 @@
+import SingleVenue from './singleVenue.js'
+
 let React = require('react')
 
 var VenueSaved = React.createClass({
 
+	getInitialState: function() {
+		return {
+			focusId: null
+		}
+	},
+
 	_getEvents: function(event) {
-		var title = event.get('title'),
-			date = event.get('date'),
-			program = event.get('program'),
-			guest = event.get('guest'),
-			notes = event.get('notes'),
-			objectId = event.id
-		return (
-			<div id='programContainer' key={objectId}>
-				{title}<br/>
-				{date}<br/>
-				{program}<br/>
-				{guest}<br/>
-				{notes}
-			</div>
-			)
+		return <SingleVenue state={this.state} event={event} _walkieTalkie={this._showDetails} />
 	},
 
 	_goBack: function() {
@@ -28,9 +22,22 @@ var VenueSaved = React.createClass({
 		location.hash = 'logout'
 	},
 
+	_showDetails: function(objectId) {
+
+		if (this.state.focusId === objectId) {
+			this.setState({
+				focusId: null
+			})
+		}
+		else {
+			this.setState({
+				focusId: objectId
+			})
+		}
+	},
+
 	render: function() {
 		var events = this.props.events
-		console.log(events)
 		return (
 			<div>
 				<input id='backButton' type='submit' value='Go Back Home' onClick={this._goBack} />
