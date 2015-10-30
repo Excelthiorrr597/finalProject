@@ -19,7 +19,7 @@ var SingleVenue = React.createClass ({
 			this.props._walkieTalkie(objectId)
 		}
 
-		var styleObj = {display:'none',opacity:'0'}
+		var styleObj = {display:'none'}
 
 		if (this.props.state.focusId === objectId) {
 			styleObj = {
@@ -27,13 +27,13 @@ var SingleVenue = React.createClass ({
 				margin:'0 auto',
 				'borderBottom':'2px dashed slategrey',
 				opacity:'1',
-				transition: 'opacity 1s ease'
+				transition:'opacity 1s ease',
+				width:'500px'
 			}
 		}
 		else {
 			styleObj = {
 				display:'none',
-				opacity:'0'
 			}
 		}
 
