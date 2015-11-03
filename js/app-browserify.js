@@ -1,8 +1,8 @@
 // es5 and 6 polyfills, powered by babel
 require("babel/polyfill")
+require('isomorphic-fetch')
 
-let fetch = require('./fetcher'),
-	Backbone = require('backbone'),
+let Backbone = require('backbone'),
 	$ = require('jquery'),
 	React = require('react'),
 	Parse = require('parse')
@@ -160,7 +160,7 @@ var ProjectRouter = Backbone.Router.extend({
 						'state':state,
 						'zip':zip,
 						'venueId':Parse.User.current().id
-					})	
+					})
 					profile.save().then(function(){
 						var user = Parse.User.current()
 						user.set({'city':city,'name':name})
@@ -170,7 +170,7 @@ var ProjectRouter = Backbone.Router.extend({
 					alert('Profile Created')
 					})
 				}
-				
+
 			}, error: function(object,error) {
 				console.log(object)
 				console.log(error.message)
@@ -231,7 +231,7 @@ var ProjectRouter = Backbone.Router.extend({
 			}
 			if (type === 'venue') {
 				location.hash = 'venue/edit'
-			}			
+			}
 		}, function(err){
 			alert('Username already taken')
 		})
