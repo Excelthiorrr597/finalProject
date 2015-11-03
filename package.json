@@ -27,7 +27,7 @@
     "watch:css": "npm run build:css; sane 'npm run build:css' ./scss --glob='**/*.css' --glob='**/*.scss'",
     "watch:js": "watchify ./js/app-browserify.js -v --delay 16 -o 'exorcist ./dist/app-browserify.js.map > ./dist/app-browserify.js' -d",
     "watch": "npm run watch:css & npm run watch:js;",
-    "gh-pages": "git add . && git commit -am 'cleaning up any staged and uncomitted changes'; git checkout master; npm run build && git subtree split --prefix dist -b gh-pages && git checkout gh-pages && cp dist/app-browserify.js . && cp dist/style.css . && git add app-browserify.js style.css && git commit -am 'cleaning and pushing' && git push origin gh-pages:gh-pages --force; git checkout master; git branch -Dq gh-pages; echo 'done';",
+    "gh-pages": "git add . && git commit -am 'cleaning up any staged and uncomitted changes'; git checkout master; npm run build; git subtree split --prefix dist -b autobuilder; git checkout autobuilder; cp dist/app-browserify.js .; cp dist/style.css .; git add app-browserify.js style.css; git commit -am 'cleaning and pushing'; git push origin gh-pages:gh-pages --force; git checkout master; git branch -Dq gh-pages; echo 'done';",
     "test": "mocha ./js/test/; echo '----- tests done'",
     "server": "nodemon --watch . --ext js,jsx heroku-server.js & npm run watch",
     "start": "npm run n heroku-server.js",
