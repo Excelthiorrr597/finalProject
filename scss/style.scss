@@ -155,7 +155,7 @@ input {
     outline: 3px dashed grey;
 }
 
-#consumerEventsButton {
+#consumerEventsButton,#availableEvents {
     border-style: none;
     border-radius: 20%;
     color: white;
@@ -173,7 +173,7 @@ input {
     }
 }
 
-#venueProfileEditButton,#venueNewEventButton,#venueSavedEventButton {
+#venueProfileEditButton,#venueNewEventButton,#venueSavedEventButton,#favoriteButton {
     border-style: none;
     border-radius: 20%;
     color: white;

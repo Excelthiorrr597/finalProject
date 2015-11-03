@@ -1,4 +1,7 @@
-let React = require('react')
+let React = require('react'),
+	Parse = require('parse')
+
+var Favorite = Parse.Object.extend('Favorite')
 
 var SingleVenue = React.createClass ({
 
@@ -19,7 +22,25 @@ var SingleVenue = React.createClass ({
 			this.props._walkieTalkie(objectId)
 		}
 
+		function favorite(){
+			var favorite = new Favorite()
+			favorite.set({
+				'title':title,
+				'date':date,
+				'program':program,
+				'guest':guest,
+				'notes':notes,
+				'eventId':objectId,
+				'userId':Parse.User.current().id
+			})
+			favorite.save().then(function(){
+				alert('saved')
+				location.hash = 'consumer/home'
+			})
+		}
+
 		var styleObj = {display:'none'}
+		var color = {color:'grey'}
 
 		if (this.props.state.focusId === objectId) {
 			styleObj = {
@@ -30,21 +51,22 @@ var SingleVenue = React.createClass ({
 				transition:'opacity 1s ease',
 				width:'500px'
 			}
+			color = {color:'black'}
 		}
-		else {
-			styleObj = {
-				display:'none',
-			}
-		}
+		
+		var styleObj2 = {display:'none'}
+		if (Parse.User.current().get('type')==='consumer') styleObj2={display:'block'}
 
 		return (
 			<div id='programContainer' key={objectId}>
-				<p id='programTitle'>{title}</p>
+				<p id='programTitle' style={color}>{title}</p>
 				<input type='button' id='programButton' value='+' onClick={walkieTalkie.bind(this)}/>
 				<p id='programDetails' style={styleObj}>{date}<br/>
 					{program}<br/>
 					{guest}<br/>
-					{notes}</p>
+					{notes}<br/>
+					<input type='submit' id='favoriteButton' value='Favorite!' onClick={favorite.bind(this)} style={styleObj2}/>
+					</p>
 			</div>
 			)
 	}

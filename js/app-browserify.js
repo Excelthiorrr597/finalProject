@@ -13,10 +13,13 @@ window.p = Parse
 
 import LogInView from './loginView.js'
 import ConsumerView from './consumerView.js'
+import AvailableEvents from './availableEvents.js'
+import ConsumerFavorites from './consumerFavorites.js'
 import VenueView from './venueView.js'
 import VenueNewEntry from './venueNewEntry.js'
 import VenueProfile from './venueProfile.js'
 import VenueSaved from './venueSaved.js'
+
 
 var APP_ID = '2TotJaout7xh2sVGRrYSQnwVmc1k7CL6qKPolcQf',
 	JS_KEY = '2mmibCcmnly9cgCjDdGojsFpWEiBkoEfT3HUcN2Q',
@@ -25,7 +28,8 @@ var APP_ID = '2TotJaout7xh2sVGRrYSQnwVmc1k7CL6qKPolcQf',
 Parse.initialize(APP_ID,JS_KEY)
 
 var Event = Parse.Object.extend('Event'),
-	Profile = Parse.Object.extend('Profile')
+	Profile = Parse.Object.extend('Profile'),
+	Favorite = Parse.Object.extend('Favorite')
 
 
 var ProjectRouter = Backbone.Router.extend({
@@ -34,6 +38,7 @@ var ProjectRouter = Backbone.Router.extend({
 		'login':'showLogInView',
 		'logout':'logOutUser',
 		'consumer/home':'showConsumerView',
+		'consumer/events':'showAvailableEvents',
 		'consumer/search/:query':'showConsumerSearchView',
 		'consumer/saved':'showConsumerEntries',
 		'venue/home':'showVenueView',
@@ -49,8 +54,24 @@ var ProjectRouter = Backbone.Router.extend({
 		location.hash = 'login'
 	},
 
+	showAvailableEvents: function() {
+		var query = new Parse.Query(Event)
+		query.find({
+			success: function(events) {
+				React.render(<AvailableEvents events={events}/>, document.querySelector('#container'))
+			}
+		})
+	},
+
 	showConsumerEntries: function() {
 		console.log('showing consumer entries')
+		var query = new Parse.Query(Favorite)
+		query.equalTo('userId',Parse.User.current().id)
+		query.find({
+			success: function(events) {
+				React.render(<ConsumerFavorites events={events}/>, document.querySelector('#container'))
+			}
+		})
 	},
 
 	showConsumerSearchView: function(query) {
@@ -59,7 +80,12 @@ var ProjectRouter = Backbone.Router.extend({
 
 	showConsumerView: function() {
 		console.log('showing consumer view')
-		React.render(<ConsumerView />, document.querySelector('#container'))
+		var query = new Parse.Query(Event)
+		query.find({
+			success: function(events) {
+				React.render(<ConsumerView events={events}/>, document.querySelector('#container'))
+			}
+		})
 	},
 
 	showDefaultView: function() {
@@ -211,3 +237,7 @@ var ProjectRouter = Backbone.Router.extend({
 })
 
 var pr = new ProjectRouter()
+
+window.onclose = function() {
+	Parse.User.logOut()
+}
