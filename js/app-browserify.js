@@ -43,7 +43,7 @@ var ProjectRouter = Backbone.Router.extend({
 		'consumer/saved':'showConsumerEntries',
 		'venue/home':'showVenueView',
 		'venue/new':'showVenueNewEntry',
-		'venue/profile':'showVenueProfile',
+		'venue/edit':'editVenueProfile',
 		'venue/saved':'showVenueEntries',
 		'*default':'showDefaultView'
 	},
@@ -117,7 +117,7 @@ var ProjectRouter = Backbone.Router.extend({
 		React.render(<VenueNewEntry sendToRouter={this.newEventEntry} />,document.querySelector('#container'))
 	},
 
-	showVenueProfile: function() {
+	editVenueProfile: function() {
 		console.log('editing venue profile')
 		React.render(<VenueProfile profileUpdate={this.updateVenueProfile} />,document.querySelector('#container'))
 	},
@@ -143,6 +143,9 @@ var ProjectRouter = Backbone.Router.extend({
 						'zip':zip
 					})
 					update.save().then(function(){
+						var user = Parse.User.current()
+						user.set({'city':city,'name':name})
+						user.save()}).then(function(){
 					location.hash = 'venue/home'
 					alert('Profile Updated')
 					})
@@ -159,8 +162,11 @@ var ProjectRouter = Backbone.Router.extend({
 						'venueId':Parse.User.current().id
 					})	
 					profile.save().then(function(){
-					location.hash = 'venue/home'
-
+						var user = Parse.User.current()
+						user.set({'city':city,'name':name})
+						user.save()})
+						.then(function(){
+						location.hash = 'venue/home'
 					alert('Profile Created')
 					})
 				}
@@ -178,11 +184,13 @@ var ProjectRouter = Backbone.Router.extend({
 	newEventEntry: function(title,date,program,guest,notes) {
 		var	event = new Event()
 		event.set({
+			'name':Parse.User.current().get('name'),
 			'title':title,
 			'date':date,
 			'program':program,
 			'guest':guest,
 			'notes':notes,
+			'city':Parse.User.current().get('city'),
 			'venueId':Parse.User.current().id
 		})
 		event.save().then(function(){
@@ -222,7 +230,7 @@ var ProjectRouter = Backbone.Router.extend({
 				location.hash = 'consumer/home'
 			}
 			if (type === 'venue') {
-				location.hash = 'venue/home'
+				location.hash = 'venue/edit'
 			}			
 		}, function(err){
 			alert('Username already taken')

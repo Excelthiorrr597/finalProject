@@ -18,22 +18,22 @@ var ConsumerFavorites = React.createClass({
 		location.hash = 'logout'
 	},
 
-	_showDetails: function(objectId) {
+	_showDetails: function(eventId) {
 
-		if (this.state.focusId === objectId) {
+		if (this.state.focusId === eventId) {
 			this.setState({
 				focusId: null
 			})
 		}
 		else {
 			this.setState({
-				focusId: objectId
+				focusId: eventId
 			})
 		}
 	},
 
 	_singleFavorite: function(event) {
-		return <SingleFavorite event={event}/>
+		return <SingleFavorite key={event.id} event={event} state={this.state} _walkieTalkie={this._showDetails}/>
 	},
 
 	render: function(){

@@ -3,7 +3,7 @@ let React = require('react')
 var VenueView = React.createClass({
 
 	_editProfileView: function() {
-		location.hash = 'venue/profile'
+		location.hash = 'venue/edit'
 	},
 
 	_enterEventView: function() {

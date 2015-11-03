@@ -14,60 +14,42 @@ var SingleFavorite = React.createClass ({
 			program = event.get('program'),
 			guest = event.get('guest'),
 			notes = event.get('notes'),
-			objectId = event.id
+			eventId = event.id
 
 		if (!guest) guest = 'No Guest Artist'
 
 		if (!notes) notes = 'No Additional Notes Provided'
 
 		function walkieTalkie(){
-			this.props._walkieTalkie(objectId)
+			this.props._walkieTalkie(eventId)
 		}
 
-		function favorite(){
-			var favorite = new Favorite()
-			favorite.set({
-				'title':title,
-				'date':date,
-				'program':program,
-				'guest':guest,
-				'notes':notes,
-				'eventId':objectId,
-				'userId':Parse.User.current().id
-			})
-			favorite.save().then(function(){
-				alert('saved')
-				location.hash = 'consumer/home'
-			})
-		}
+		function unfavorite(){
+			var query = new Parse.Query(Favorite)
+			query.get(eventId,{success: function(object){object.destroy({success: function(){alert('Removed from your favorites');location.hash='consumer/home'}})}})
+		}		
 
 		var styleObj = {display:'none'}
-		var color = {color:'grey'}
+		var border = {border:'none'}
 
-		if (this.props.state.focusId === objectId) {
+		if (this.props.state.focusId === eventId) {
 			styleObj = {
 				display:'block',
 				margin:'0 auto',
 				'borderBottom':'2px dashed slategrey',
-				opacity:'1',
-				transition:'opacity 1s ease',
 				width:'500px'
 			}
-			color = {color:'black'}
 		}
 		
-		var styleObj2 = {display:'none'}
-		//if (Parse.User.current().get('type')==='consumer') styleObj2={display:'block'}
-
 		return (
-			<div id='programContainer' key={objectId}>
-				<p id='programTitle' style={color}>{title}</p>
+			<div id='programContainer' key={eventId}>
+				<p id='programTitle'>{title}</p>
 				<input type='button' id='programButton' value='+' onClick={walkieTalkie.bind(this)}/>
 				<p id='programDetails' style={styleObj}>{date}<br/>
 					{program}<br/>
 					{guest}<br/>
 					{notes}<br/>
-					<input type='submit' id='unfavoriteButton' value='Remove Favorite!' onClick={favorite.bind(this)} style={styleObj2}/>
+					<input type='submit' id='unfavoriteButton' value='Remove Favorite!' onClick={unfavorite.bind(this)} />
 					</p>
 			</div>
 			)

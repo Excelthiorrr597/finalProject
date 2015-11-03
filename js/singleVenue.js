@@ -34,24 +34,20 @@ var SingleVenue = React.createClass ({
 				'userId':Parse.User.current().id
 			})
 			favorite.save().then(function(){
-				alert('saved')
+				alert('Saved to your favorites')
 				location.hash = 'consumer/home'
 			})
 		}
 
 		var styleObj = {display:'none'}
-		var color = {color:'grey'}
 
 		if (this.props.state.focusId === objectId) {
 			styleObj = {
 				display:'block',
 				margin:'0 auto',
 				'borderBottom':'2px dashed slategrey',
-				opacity:'1',
-				transition:'opacity 1s ease',
 				width:'500px'
 			}
-			color = {color:'black'}
 		}
 		
 		var styleObj2 = {display:'none'}
@@ -59,7 +55,7 @@ var SingleVenue = React.createClass ({
 
 		return (
 			<div id='programContainer' key={objectId}>
-				<p id='programTitle' style={color}>{title}</p>
+				<p id='programTitle'>{title}</p>
 				<input type='button' id='programButton' value='+' onClick={walkieTalkie.bind(this)}/>
 				<p id='programDetails' style={styleObj}>{date}<br/>
 					{program}<br/>

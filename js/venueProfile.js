@@ -1,4 +1,5 @@
-let React = require('react')
+let React = require('react'),
+	Parse = require('parse')
 
 var VenueProfile = React.createClass({
 
@@ -7,6 +8,7 @@ var VenueProfile = React.createClass({
 	},
 
 	_sendToRouter: function() {
+		var self = this
 		var name = this.refs.name.getDOMNode().value,
 			add1 = this.refs.address1.getDOMNode().value,
 			add2 = this.refs.address2.getDOMNode().value,
@@ -37,6 +39,7 @@ var VenueProfile = React.createClass({
 			alert('Please Enter Zip')
 			return
 		}
+		
 		this.props.profileUpdate(name,add1,add2,city,state,zip)
 	},
 

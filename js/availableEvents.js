@@ -11,7 +11,7 @@ var AvailableEvents = React.createClass({
 	},
 
 	_getEvents: function(event) {
-		return <SingleVenue state={this.state} event={event} _walkieTalkie={this._showDetails} />
+		return <SingleVenue key={event.id} state={this.state} event={event} _walkieTalkie={this._showDetails} />
 	},
 
 	_goBack: function() {
