@@ -55,18 +55,21 @@ var SingleVenue = React.createClass ({
 		var styleObj2 = {display:'none'}
 		if (Parse.User.current().get('type')==='consumer') styleObj2={display:'block'}
 
+        var programLines = program.trim().split('\n')
+        console.log(programLines)
+
 		return (
 			<div id='programContainer' key={objectId}>
 				<p id='programTitle'>{title}</p>
 				<input type='button' id='programButton' value='+' onClick={walkieTalkie.bind(this)}/>
-				<p id='programDetails' style={styleObj}>
-                    {name}<br/>
-					{program}<br/>
-                    {date}<br/>
-					{guest}<br/>
-					{notes}<br/>
+				<div id='programDetails' style={styleObj}>
+                    <p>{name}</p>
+					{programLines.map((line) => <p>{line}</p>)}
+                    <p>{date}</p>
+					<p>{guest}</p>
+					<p>{notes}</p>
 					<input type='submit' id='favoriteButton' value='Favorite!' onClick={favorite.bind(this)} style={styleObj2}/>
-					</p>
+				</div>
 			</div>
 			)
 	}

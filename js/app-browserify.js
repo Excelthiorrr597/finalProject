@@ -227,7 +227,7 @@ var ProjectRouter = Backbone.Router.extend({
 			'name':Parse.User.current().get('name'),
 			'title':title,
 			'date':date,
-			'program':program,
+			'program': program,
 			'guest':guest,
 			'notes':notes,
 			'city':Parse.User.current().get('city'),
