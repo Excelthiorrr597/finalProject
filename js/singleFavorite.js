@@ -41,7 +41,6 @@ var SingleFavorite = React.createClass ({
 		}
 
         var programLines = program.trim().split('\n')
-        console.log(programLines)
 
         return (
             <div id='programContainer' key={eventId}>

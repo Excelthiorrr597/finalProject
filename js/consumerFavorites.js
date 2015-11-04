@@ -1,6 +1,6 @@
 let React = require('react')
 
-import SingleFavorite from './singleFavorite.js'
+import SingleFavorite from './singleFavorite'
 
 var ConsumerFavorites = React.createClass({
 

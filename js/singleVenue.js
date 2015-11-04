@@ -56,7 +56,6 @@ var SingleVenue = React.createClass ({
 		if (Parse.User.current().get('type')==='consumer') styleObj2={display:'block'}
 
         var programLines = program.trim().split('\n')
-        console.log(programLines)
 
 		return (
 			<div id='programContainer' key={objectId}>

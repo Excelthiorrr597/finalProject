@@ -1,4 +1,4 @@
-import SingleVenue from './singleVenue.js'
+import SingleVenue from './singleVenue'
 
 let React = require('react')
 

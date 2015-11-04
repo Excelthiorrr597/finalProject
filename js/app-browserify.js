@@ -11,15 +11,16 @@ console.log('loaded javascript')
 
 window.p = Parse
 
-import LogInView from './loginView.js'
-import ConsumerView from './consumerView.js'
-import AvailableEvents from './availableEvents.js'
-import ConsumerFavorites from './consumerFavorites.js'
-import NearbyEvents from './nearbyEvents.js'
-import VenueView from './venueView.js'
-import VenueNewEntry from './venueNewEntry.js'
-import VenueProfile from './venueProfile.js'
-import VenueSaved from './venueSaved.js'
+import LogInView from './loginView'
+import ConsumerView from './consumerView'
+import AvailableEvents from './availableEvents'
+import ConsumerFavorites from './consumerFavorites'
+import NearbyEvents from './nearbyEvents'
+import EventSearch from './eventSearch'
+import VenueView from './venueView'
+import VenueNewEntry from './venueNewEntry'
+import VenueProfile from './venueProfile'
+import VenueSaved from './venueSaved'
 
 //=============Google API Information==================//
 
@@ -49,7 +50,7 @@ var ProjectRouter = Backbone.Router.extend({
 		'consumer/home':'showConsumerView',
 		'consumer/events':'showAvailableEvents',
         'consumer/near':'showNearbyEvents',
-		'consumer/search/:query':'showConsumerSearchView',
+		'consumer/search/:comp':'showConsumerSearchView',
 		'consumer/saved':'showConsumerEntries',
 		'venue/home':'showVenueView',
 		'venue/new':'showVenueNewEntry',
@@ -84,8 +85,15 @@ var ProjectRouter = Backbone.Router.extend({
 		})
 	},
 
-	showConsumerSearchView: function(query) {
-		console.log('showing search view')
+	showConsumerSearchView: function(comp) {
+        comp = comp[0].toUpperCase() + comp.slice(1)
+		console.log('showing search view',comp)
+
+        var query = new Parse.Query(Event)
+        query.matches('program',comp)
+        query.find().then(function(events){
+            React.render(<EventSearch events={events}/>,document.querySelector('#container'))
+        })
 	},
 
 	showConsumerView: function() {
