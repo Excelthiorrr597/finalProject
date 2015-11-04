@@ -15,11 +15,19 @@ import LogInView from './loginView.js'
 import ConsumerView from './consumerView.js'
 import AvailableEvents from './availableEvents.js'
 import ConsumerFavorites from './consumerFavorites.js'
+import NearbyEvents from './nearbyEvents.js'
 import VenueView from './venueView.js'
 import VenueNewEntry from './venueNewEntry.js'
 import VenueProfile from './venueProfile.js'
 import VenueSaved from './venueSaved.js'
 
+//=============Google API Information==================//
+
+var geolocationURL = 'https://maps.googleapis.com/maps/api/geocode/json?',
+    API_KEY = 'AIzaSyBgNVgOm4vq0Aypg_0Tz8MYqNxSRX6SBlY',
+    latlng
+
+//=============Parse SDK Information===================//
 
 var APP_ID = '2TotJaout7xh2sVGRrYSQnwVmc1k7CL6qKPolcQf',
 	JS_KEY = '2mmibCcmnly9cgCjDdGojsFpWEiBkoEfT3HUcN2Q',
@@ -31,6 +39,7 @@ var Event = Parse.Object.extend('Event'),
 	Profile = Parse.Object.extend('Profile'),
 	Favorite = Parse.Object.extend('Favorite')
 
+//=============Backbone Router=======================//
 
 var ProjectRouter = Backbone.Router.extend({
 
@@ -39,6 +48,7 @@ var ProjectRouter = Backbone.Router.extend({
 		'logout':'logOutUser',
 		'consumer/home':'showConsumerView',
 		'consumer/events':'showAvailableEvents',
+        'consumer/near':'showNearbyEvents',
 		'consumer/search/:query':'showConsumerSearchView',
 		'consumer/saved':'showConsumerEntries',
 		'venue/home':'showVenueView',
@@ -87,6 +97,36 @@ var ProjectRouter = Backbone.Router.extend({
 			}
 		})
 	},
+
+    showNearbyEvents: function() {
+        console.log('showing nearby events')
+        alert('Getting your location. May take a few seconds.')
+        navigator.geolocation.getCurrentPosition(function(loc){
+            var lat = loc.coords.latitude,
+                lng = loc.coords.longitude
+
+            latlng = `${lat},${lng}`
+            var ajaxParams = {
+            url: geolocationURL,
+            data: {
+                key: API_KEY,
+                latlng: latlng
+                }
+            }
+            $.ajax(ajaxParams).then(function(obj){
+                var usrLoc = obj.results[0].address_components[3].long_name
+                console.log(usrLoc)
+                var query = new Parse.Query(Event)
+                query.equalTo('city',usrLoc)
+                query.find({success:function(events){
+                    React.render(<NearbyEvents events={events} />,document.querySelector('#container'))
+                }})
+            },function(){
+                alert('We had trouble getting your location. Please try again.')
+                location.hash = 'consumer/home'
+            })
+        })
+    },
 
 	showDefaultView: function() {
 		if (Parse.User.current().get('type')==='venue') {

@@ -18,8 +18,12 @@ var ConsumerView = React.createClass({
 		location.hash = 'consumer/events'
 	},
 
+    _showNearbyEvents: function() {
+        location.hash = 'consumer/near'
+    },
+
 	_showSavedEvents: function() {
-		location.hash = 'consumer/saved'		
+		location.hash = 'consumer/saved'
 	},
 
 	render: function() {
@@ -31,8 +35,9 @@ var ConsumerView = React.createClass({
 				</div>
 				<div id='consumerMenu'>
 					<input id='availableEvents' type='submit' value='View Available Events' onClick={this._showAvailableEvents} />
+                    <input id='nearbyEvents' type='submit' value='View Nearby Events' onClick={this._showNearbyEvents} />
 					<input id='consumerEventSearch' type='text' placeholder='Search for Events' onKeyPress={this._handleEnter}/>
-					<input id='consumerEventsButton' type='submit' value='View Saved Events' onClick={this._showSavedEvents} />
+					<input id='consumerSavedEventsButton' type='submit' value='View Saved Events' onClick={this._showSavedEvents} />
 				</div>
 			</div>
 			)

@@ -12,7 +12,8 @@ var SingleVenue = React.createClass ({
 			program = event.get('program'),
 			guest = event.get('guest'),
 			notes = event.get('notes'),
-			objectId = event.id
+			objectId = event.id,
+            name = event.get('name')
 
 		if (!guest) guest = 'No Guest Artist'
 
@@ -25,6 +26,7 @@ var SingleVenue = React.createClass ({
 		function favorite(){
 			var favorite = new Favorite()
 			favorite.set({
+                'name':name,
 				'title':title,
 				'date':date,
 				'program':program,
@@ -49,7 +51,7 @@ var SingleVenue = React.createClass ({
 				width:'500px'
 			}
 		}
-		
+
 		var styleObj2 = {display:'none'}
 		if (Parse.User.current().get('type')==='consumer') styleObj2={display:'block'}
 
@@ -57,8 +59,10 @@ var SingleVenue = React.createClass ({
 			<div id='programContainer' key={objectId}>
 				<p id='programTitle'>{title}</p>
 				<input type='button' id='programButton' value='+' onClick={walkieTalkie.bind(this)}/>
-				<p id='programDetails' style={styleObj}>{date}<br/>
+				<p id='programDetails' style={styleObj}>
+                    {name}<br/>
 					{program}<br/>
+                    {date}<br/>
 					{guest}<br/>
 					{notes}<br/>
 					<input type='submit' id='favoriteButton' value='Favorite!' onClick={favorite.bind(this)} style={styleObj2}/>

@@ -39,14 +39,13 @@ var ConsumerFavorites = React.createClass({
 	render: function(){
 		return (
 			<div>
-				<input id='backButton' type='submit' value='Go Back Home' onClick={this._goBack} />
 				<div id='logOut'>
 					<input id='logOutButton' type='submit' value='Log Out' onClick={this._logOut} />
 				</div>
-
+                <input id='backButton' type='submit' value='Go Back Home' onClick={this._goBack} />
 				<div>
 					{this.props.events.map(this._singleFavorite)}
-				</div>	
+				</div>
 			</div>
 			)
 	}

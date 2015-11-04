@@ -11,7 +11,7 @@ var VenueSaved = React.createClass({
 	},
 
 	_getEvents: function(event) {
-		return <SingleVenue state={this.state} event={event} _walkieTalkie={this._showDetails} />
+		return <SingleVenue key={event.id} state={this.state} event={event} _walkieTalkie={this._showDetails} />
 	},
 
 	_goBack: function() {
@@ -40,14 +40,13 @@ var VenueSaved = React.createClass({
 		var events = this.props.events
 		return (
 			<div>
-				<input id='backButton' type='submit' value='Go Back Home' onClick={this._goBack} />
 				<div id='logOut'>
 					<input id='logOutButton' type='submit' value='Log Out' onClick={this._logOut} />
 				</div>
-
+                <input id='backButton' type='submit' value='Go Back Home' onClick={this._goBack} />
 				<div>
 					{events.map(this._getEvents)}
-				</div>	
+				</div>
 			</div>
 			)
 	}
