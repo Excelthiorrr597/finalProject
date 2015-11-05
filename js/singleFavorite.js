@@ -1,5 +1,6 @@
 let React = require('react'),
-	Parse = require('parse')
+	Parse = require('parse'),
+    swal = require('sweetalert')
 
 var Favorite = Parse.Object.extend('Favorite')
 
@@ -25,7 +26,7 @@ var SingleFavorite = React.createClass ({
 
 		function unfavorite(){
 			var query = new Parse.Query(Favorite)
-			query.get(eventId,{success: function(object){object.destroy({success: function(){alert('Removed from your Favorites');location.hash='consumer/home'}})}})
+			query.get(eventId,{success: function(object){object.destroy({success: function(){swal({title:'Removed from your Favorites',type:'success'});location.hash='consumer/home'}})}})
 		}
 
 		var styleObj = {display:'none'}

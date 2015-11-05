@@ -1,5 +1,6 @@
 let React = require('react'),
-	Parse = require('parse')
+	Parse = require('parse'),
+    swal = require('sweetalert')
 
 var Favorite = Parse.Object.extend('Favorite')
 
@@ -36,7 +37,7 @@ var SingleVenue = React.createClass ({
 				'userId':Parse.User.current().id
 			})
 			favorite.save().then(function(){
-				alert('Saved to your favorites')
+				swal({title:'Saved to your favorites',type:'success'})
 				location.hash = 'consumer/home'
 			})
 		}

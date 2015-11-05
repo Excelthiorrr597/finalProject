@@ -6,7 +6,7 @@ let Backbone = require('backbone'),
 	$ = require('jquery'),
 	React = require('react'),
 	Parse = require('parse'),
-    nlp = require('nlp_compromise')
+    nlp = require('nlp_compromise'),
     swal = require('sweetalert')
 
 console.log('loaded javascript')
@@ -135,7 +135,7 @@ var ProjectRouter = Backbone.Router.extend({
                     React.render(<NearbyEvents events={events} />,document.querySelector('#container'))
                 }})
             },function(){
-                alert('We had trouble getting your location. Please try again.')
+                swal({title:'Oops!',text:'We had trouble getting your location. Please try again.',type:'error'})
                 location.hash = 'consumer/home'
             })
         })
@@ -200,7 +200,7 @@ var ProjectRouter = Backbone.Router.extend({
 						user.set({'city':city,'name':name})
 						user.save()}).then(function(){
 					location.hash = 'venue/home'
-					alert('Profile Updated')
+					swal({title:'Profile Updated',type:'success'})
 					})
 				}
 				else {
@@ -220,14 +220,14 @@ var ProjectRouter = Backbone.Router.extend({
 						user.save()})
 						.then(function(){
 						location.hash = 'venue/home'
-					alert('Profile Created')
+					swal({title:'Profile Created',type:'success'})
 					})
 				}
 
 			}, error: function(object,error) {
 				console.log(object)
 				console.log(error.message)
-				alert('Update failed')
+				swal({title:'Update failed',type:'error'})
 				location.hash = 'venue/home'
 			}
 		})
@@ -247,7 +247,7 @@ var ProjectRouter = Backbone.Router.extend({
 			'venueId':Parse.User.current().id
 		})
 		event.save().then(function(){
-			alert('Saved to Database')
+			swal({title:'Saved to Database',type:'success'})
 		})
 		location.hash = 'venue/home'
 	},
@@ -266,7 +266,7 @@ var ProjectRouter = Backbone.Router.extend({
 				location.hash = 'venue/home'
 			}
 		}, function(err){
-			alert('Username/Password combination not in the database')
+			swal({title:'Oops!',text:'Username/Password combination not in the database',type:'error'})
 		})
 	},
 
@@ -286,7 +286,7 @@ var ProjectRouter = Backbone.Router.extend({
 				location.hash = 'venue/edit'
 			}
 		}, function(err){
-			alert('Username already taken')
+			swal({title:'Oops!',text:'Username already taken',type:'error'})
 		})
 	},
 
