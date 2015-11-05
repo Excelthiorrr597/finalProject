@@ -5,7 +5,9 @@ require('isomorphic-fetch')
 let Backbone = require('backbone'),
 	$ = require('jquery'),
 	React = require('react'),
-	Parse = require('parse')
+	Parse = require('parse'),
+    nlp = require('nlp_compromise')
+    swal = require('sweetalert')
 
 console.log('loaded javascript')
 
@@ -108,7 +110,10 @@ var ProjectRouter = Backbone.Router.extend({
 
     showNearbyEvents: function() {
         console.log('showing nearby events')
-        alert('Getting your location. May take a few seconds.')
+        swal({
+            title:'Getting your location. May take a few seconds.',
+            type:'success'
+        })
         navigator.geolocation.getCurrentPosition(function(loc){
             var lat = loc.coords.latitude,
                 lng = loc.coords.longitude
