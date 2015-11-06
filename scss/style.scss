@@ -1105,7 +1105,17 @@ input {
     }
 }
 
-#venueProfileEditButton,#venueNewEventButton,#venueSavedEventButton,#favoriteButton,#unfavoriteButton,#availableEvents,#nearbyEvents {
+#venueProfile {
+    text-align: center;
+    margin: 30px auto;
+    width: 600px;
+    input {
+        width: 500px;
+        margin-top: 30px;
+    }
+}
+
+#venueProfileEditButton,#venueNewEventButton,#venueSavedEventButton,#favoriteButton,#unfavoriteButton,#availableEvents,#nearbyEvents,#deleteButton {
     border-style: none;
     border-radius: 20%;
     color: white;
@@ -1128,8 +1138,8 @@ input {
     width: 500px;
 }
 
-#eventDate,#eventTime {
-
+#eventDate {
+    display: block;
 }
 
 #eventProgram,#eventNotes {

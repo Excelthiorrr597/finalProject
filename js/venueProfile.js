@@ -8,13 +8,14 @@ var VenueProfile = React.createClass({
 	},
 
 	_sendToRouter: function() {
-		var self = this
 		var name = this.refs.name.getDOMNode().value,
 			add1 = this.refs.address1.getDOMNode().value,
 			add2 = this.refs.address2.getDOMNode().value,
 			city = this.refs.city.getDOMNode().value,
 			state = this.refs.state.getDOMNode().value,
-			zip = this.refs.zip.getDOMNode().value
+			zip = this.refs.zip.getDOMNode().value,
+            email = this.refs.email.getDOMNode().value,
+            url = this.refs.url.getDOMNode().value
 
 		if (!name) {
 			alert('Please Enter Name')
@@ -39,21 +40,29 @@ var VenueProfile = React.createClass({
 			alert('Please Enter Zip')
 			return
 		}
-		
-		this.props.profileUpdate(name,add1,add2,city,state,zip)
+
+		this.props.profileUpdate(name,add1,add2,city,state,zip,email,url)
 	},
 
+
 	render: function() {
+    var styleObj = {'textAlign':'center'}
+
 		return (
-			<div>
+			<div style={styleObj}>
 				<input id='backButton' type='submit' value='Go Back Home' onClick={this._goBack} />
+                <h2>Edit your Profile Information</h2>
 				<div id='venueProfile'>
 					<input id='venueName' type='text' placeholder='Venue Name' ref='name'/>
 					<input id='venueAddress1' type='text' placeholder='Street Address' ref='address1'/>
 					<input id='venueAddress2' type='text' placeholder='Apt or Suite #' ref='address2'/>
-					<input id='venueCity' type='text' placeholder='City' ref='city'/>
-					<input id='venueState' type='text' maxLength='2' placeholder='ST' ref='state'/>
-					<input id='venueZip' type='text' maxLength='5' placeholder='Zip' pattern='\d*' ref='zip'/>
+                    <div>
+    					<input id='venueCity' type='text' placeholder='City' ref='city'/>
+    					<input id='venueState' type='text' maxLength='2' placeholder='ST' ref='state'/>
+    					<input id='venueZip' type='text' maxLength='5' placeholder='Zip' pattern='\d*' ref='zip'/>
+                    </div>
+                    <input id='venueEmail' type='text' placeholder='Email' ref='email'/>
+                    <input id='venueUrl' type='text' placeholder='Web Address' ref='url'/>
 				</div>
 				<div id='profileSubmitBox'>
 					<input id='profileSubmit' type='submit' onClick={this._sendToRouter} />

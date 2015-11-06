@@ -7,14 +7,36 @@ var VenueNewEntry = React.createClass({
 	},
 
 	_sendToRouter: function() {
-        window.obj = this.refs.date.getDOMNode()
-        window.obj2 = this.refs.time.getDOMNode()
-
 		var title = this.refs.title.getDOMNode().value,
 			date = this.refs.date.getDOMNode().value,
 			program = this.refs.program.getDOMNode().value,
 			guest = this.refs.guestArtist.getDOMNode().value,
 			notes = this.refs.programNotes.getDOMNode().value
+
+        var d = new Date(date),
+            minutes = d.getUTCMinutes(),
+            hours = d.getUTCHours(),
+            years = d.getUTCFullYear(),
+            days = d.getUTCDate(),
+            wkday = d.getUTCDay(),
+            month = d.getUTCMonth(),
+            weekArr = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+            monthArr = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+            timePeriod = 'AM'
+
+        if (hours > 12) {
+            timePeriod = 'PM'
+            hours -= 12
+        }
+
+        if (minutes < 10) {
+            minutes = '0' + minutes
+        }
+
+        wkday = weekArr[wkday]
+        month = monthArr[month]
+
+        date = wkday + ', ' + month + ' ' + days + ', ' + years + ' at ' + hours + ':' + minutes + ' ' + timePeriod
 
 		if (!title) {
 			alert('Fill in the Title Field')
@@ -45,8 +67,7 @@ var VenueNewEntry = React.createClass({
 				<div id='newEventWrapper'>
 					<input id='eventTitle' type='text' placeholder='Event Title' ref='title' />
                     <div>
-					   <input id='eventDate' type='date' ref='date' />
-                       <input id='eventTime' type='time' ref='time' />
+					   <input id='eventDate' type='datetime-local' ref='date' />
                     </div>
 					<textarea id='eventProgram' type='text' placeholder='Program Content' ref='program' />
 					<input id='eventGuests' type='text' placeholder='Guest Artists (optional)' ref='guestArtist' />

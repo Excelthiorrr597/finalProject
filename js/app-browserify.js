@@ -180,7 +180,7 @@ var ProjectRouter = Backbone.Router.extend({
 		React.render(<VenueView />, document.querySelector('#container'))
 	},
 
-	updateVenueProfile: function(name,add1,add2,city,state,zip) {
+	updateVenueProfile: function(name,add1,add2,city,state,zip,email,url) {
 		var query = new Parse.Query(Profile)
 		query.equalTo("venueId", Parse.User.current().id)
 		query.find({
@@ -193,7 +193,9 @@ var ProjectRouter = Backbone.Router.extend({
 						'add2':add2,
 						'city':city,
 						'state':state,
-						'zip':zip
+						'zip':zip,
+                        'email':email,
+                        'url':url
 					})
 					update.save().then(function(){
 						var user = Parse.User.current()
@@ -212,7 +214,9 @@ var ProjectRouter = Backbone.Router.extend({
 						'city':city,
 						'state':state,
 						'zip':zip,
-						'venueId':Parse.User.current().id
+						'venueId':Parse.User.current().id,
+                        'email':email,
+                        'url':url
 					})
 					profile.save().then(function(){
 						var user = Parse.User.current()

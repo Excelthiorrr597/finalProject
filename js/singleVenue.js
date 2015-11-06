@@ -2,7 +2,8 @@ let React = require('react'),
 	Parse = require('parse'),
     swal = require('sweetalert')
 
-var Favorite = Parse.Object.extend('Favorite')
+var Event = Parse.Object.extend('Event'),
+    Favorite = Parse.Object.extend('Favorite')
 
 var SingleVenue = React.createClass ({
 
@@ -42,7 +43,13 @@ var SingleVenue = React.createClass ({
 			})
 		}
 
-		var styleObj = {display:'none'}
+        function destroy(){
+            var query = new Parse.Query(Event)
+            query.get(objectId,{success: function(object){object.destroy({success: function(){swal({title:'Event Deleted!',type:'success'});location.hash='venue/home'}})}})
+        }
+
+		var styleObj = {display:'none'},
+            plusMinus = '+'
 
 		if (this.props.state.focusId === objectId) {
 			styleObj = {
@@ -51,17 +58,21 @@ var SingleVenue = React.createClass ({
 				'borderBottom':'2px dashed slategrey',
 				width:'500px'
 			}
+            plusMinus = '-'
 		}
 
 		var styleObj2 = {display:'none'}
 		if (Parse.User.current().get('type')==='consumer') styleObj2={display:'block'}
+
+        var styleObj3 = {display:'none'}
+        if (Parse.User.current().get('type')==='venue') styleObj3={display:'block'}
 
         var programLines = program.trim().split('\n')
 
 		return (
 			<div id='programContainer' key={objectId}>
 				<p id='programTitle'>{title}</p>
-				<input type='button' id='programButton' value='+' onClick={walkieTalkie.bind(this)}/>
+				<input type='button' id='programButton' value={plusMinus} onClick={walkieTalkie.bind(this)}/>
 				<div id='programDetails' style={styleObj}>
                     <p>{name}</p>
 					{programLines.map((line) => <p>{line}</p>)}
@@ -69,6 +80,7 @@ var SingleVenue = React.createClass ({
 					<p>{guest}</p>
 					<p>{notes}</p>
 					<input type='submit' id='favoriteButton' value='Favorite!' onClick={favorite.bind(this)} style={styleObj2}/>
+                    <input type='submit' id='deleteButton' value='Delete Event' onClick={destroy.bind(this)} style={styleObj3}/>
 				</div>
 			</div>
 			)

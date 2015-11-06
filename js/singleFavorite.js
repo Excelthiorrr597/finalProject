@@ -29,8 +29,9 @@ var SingleFavorite = React.createClass ({
 			query.get(eventId,{success: function(object){object.destroy({success: function(){swal({title:'Removed from your Favorites',type:'success'});location.hash='consumer/home'}})}})
 		}
 
-		var styleObj = {display:'none'}
-		var border = {border:'none'}
+		var styleObj = {display:'none'},
+		    border = {border:'none'},
+            plusMinus = '+'
 
 		if (this.props.state.focusId === eventId) {
 			styleObj = {
@@ -39,6 +40,7 @@ var SingleFavorite = React.createClass ({
 				'borderBottom':'2px dashed slategrey',
 				width:'500px'
 			}
+            plusMinus = '-'
 		}
 
         var programLines = program.trim().split('\n')
@@ -46,7 +48,7 @@ var SingleFavorite = React.createClass ({
         return (
             <div id='programContainer' key={eventId}>
                 <p id='programTitle'>{title}</p>
-                <input type='button' id='programButton' value='+' onClick={walkieTalkie.bind(this)}/>
+                <input type='button' id='programButton' value={plusMinus} onClick={walkieTalkie.bind(this)}/>
                 <div id='programDetails' style={styleObj}>
                     <p>{name}</p>
                     {programLines.map((line) => <p>{line}</p>)}
