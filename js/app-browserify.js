@@ -202,58 +202,75 @@ var ProjectRouter = Backbone.Router.extend({
 	updateVenueProfile: function(name,add1,city,state,zip,email,url) {
 		var query = new Parse.Query(Profile)
         document.querySelector('#container').innerHTML = `<img src='./images/loading2.gif'>`
-		query.equalTo("venueId", Parse.User.current().id)
-		query.find({
-			success: function(profile) {
-				if (profile.length !== 0) {
-					var update = profile[0]
-					update.set({
-						'name':name,
-						'add1':add1,
-						'city':city,
-						'state':state,
-						'zip':zip,
-                        'email':email,
-                        'url':url,
-					})
-					update.save().then(function(){
-						var user = Parse.User.current()
-						user.set({'city':city,'name':name})
-						user.save()}).then(function(){
-					location.hash = 'venue/home'
-					swal({title:'Profile Updated',type:'success'})
-					})
-				}
-				else {
-					var profile = new Profile()
-					profile.set({
-						'name':name,
-						'add1':add1,
-						'city':city,
-						'state':state,
-						'zip':zip,
-						'venueId':Parse.User.current().id,
-                        'email':email,
-                        'url':url,
-                        'username':Parse.User.current().get('username')
-					})
-					profile.save().then(function(){
-						var user = Parse.User.current()
-						user.set({'city':city,'name':name})
-						user.save()})
-						.then(function(){
-						location.hash = 'venue/home'
-					swal({title:'Profile Created',type:'success'})
-					})
-				}
+        var address = `${add1}, ${city}, ${state}`,
+            ajaxParams = {
+            url:geolocationURL,
+            data: {
+                key:API_KEY,
+                address: address
+            }
+        }
+        $.ajax(ajaxParams).then(function(response){
+            console.log(response)
+            var lat = response.results[0].geometry.location.lat,
+                lng = response.results[0].geometry.location.lng
 
-			}, error: function(object,error) {
-				console.log(object)
-				console.log(error.message)
-				swal({title:'Update failed',type:'error'})
-				location.hash = 'venue/home'
-			}
-		})
+		    query.equalTo("venueId", Parse.User.current().id)
+    		query.find({
+    			success: function(profile) {
+    				if (profile.length !== 0) {
+    					var update = profile[0]
+    					update.set({
+    						'name':name,
+    						'add1':add1,
+    						'city':city,
+    						'state':state,
+    						'zip':zip,
+                            'email':email,
+                            'url':url,
+                            'lat':lat,
+                            'lng':lng
+    					})
+    					update.save().then(function(){
+    						var user = Parse.User.current()
+    						user.set({'city':city,'name':name})
+    						user.save()}).then(function(){
+    					location.hash = 'venue/home'
+    					swal({title:'Profile Updated',type:'success'})
+    					})
+    				}
+    				else {
+    					var profile = new Profile()
+    					profile.set({
+    						'name':name,
+    						'add1':add1,
+    						'city':city,
+    						'state':state,
+    						'zip':zip,
+    						'venueId':Parse.User.current().id,
+                            'email':email,
+                            'url':url,
+                            'lat':lat,
+                            'lng':lng,
+                            'username':Parse.User.current().get('username')
+    					})
+    					profile.save().then(function(){
+    						var user = Parse.User.current()
+    						user.set({'city':city,'name':name})
+    						user.save()})
+    						.then(function(){
+    						location.hash = 'venue/home'
+    					swal({title:'Profile Created',type:'success'})
+    					})
+    				}
+    			}, error: function(object,error) {
+    				console.log(object)
+    				console.log(error.message)
+    				swal({title:'Update failed',type:'error'})
+    				location.hash = 'venue/home'
+    			}
+    		})
+        })
 	},
 
 
@@ -282,6 +299,11 @@ var ProjectRouter = Backbone.Router.extend({
 			'password':password
 		})
 		newUser.logIn().then(function(){
+            swal({
+                title:'Nice!',
+                text:'Successfully Logged In',
+                type:'success'
+            })
 			if (Parse.User.current().get('type') === 'consumer') {
 				location.hash = 'consumer/home'
 			}
@@ -302,6 +324,11 @@ var ProjectRouter = Backbone.Router.extend({
 			'email':email
 		})
 		newUser.signUp().then(function(){
+            swal({
+                title:'Nice!',
+                text:'Account Successfully Created',
+                type:'success'
+            })
 			if (type === 'consumer') {
 				location.hash = 'consumer/home'
 			}

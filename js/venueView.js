@@ -25,7 +25,7 @@ var VenueView = React.createClass({
 	},
 
 	render: function() {
-        var venue = Parse.User.current().get('username')
+        var venue = Parse.User.current().get('name')
 
 		return (
 			<div>

@@ -2,6 +2,11 @@ let React = require('react')
 
 var VenueNewEntry = React.createClass({
 
+    _addPiece: function() {
+        console.log('clicked')
+        document.querySelector('#programContainer').appendChild(`<p>Hi</p>`)
+    },
+
 	_goBack: function() {
 		location.hash = 'venue/home'
 	},
@@ -60,7 +65,10 @@ var VenueNewEntry = React.createClass({
 		this.props.sendToRouter(title,date,program,guest,notes)
 	},
 
+
+
 	render: function() {
+        window.m = document.querySelector('#programContainer')
 		return (
 			<div>
 				<input id='backButton' type='submit' value='Go Back Home' onClick={this._goBack} />
@@ -69,7 +77,9 @@ var VenueNewEntry = React.createClass({
                     <div>
 					   <input id='eventDate' type='datetime-local' ref='date' />
                     </div>
-					<textarea id='eventProgram' type='text' placeholder='Program Content' ref='program' />
+                    <div id='programContainer'>
+                        <button type='button' onClick={this._addPiece}/>
+                    </div>
 					<input id='eventGuests' type='text' placeholder='Guest Artists (optional)' ref='guestArtist' />
 					<textarea id='eventNotes' type='text' placeholder='Any additional notes or comments you want to include' ref='programNotes' />
 					<div id='eventSubmitBox'>
