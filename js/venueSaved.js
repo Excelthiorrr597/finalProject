@@ -39,11 +39,12 @@ var VenueSaved = React.createClass({
 	render: function() {
 		var events = this.props.events
 		return (
-			<div>
+			<div id='eventsList'>
 				<div id='logOut'>
 					<input id='logOutButton' type='submit' value='Log Out' onClick={this._logOut} />
 				</div>
-                <input id='backButton' type='submit' value='Go Back Home' onClick={this._goBack} />
+                <input id='backButton' type='submit' value='Go Home' onClick={this._goBack} />
+                <h2>Here are your saved events!</h2>
 				<div>
 					{events.map(this._getEvents)}
 				</div>

@@ -15,7 +15,8 @@ var SingleVenue = React.createClass ({
 			guest = event.get('guest'),
 			notes = event.get('notes'),
 			objectId = event.id,
-            name = event.get('name')
+            name = event.get('name'),
+            url = `#profile/${name}`
 
 		if (!guest) guest = 'No Guest Artist'
 
@@ -61,11 +62,16 @@ var SingleVenue = React.createClass ({
             plusMinus = '-'
 		}
 
-		var styleObj2 = {display:'none'}
-		if (Parse.User.current().get('type')==='consumer') styleObj2={display:'block'}
+		var styleObj2 = {display:'none'},
+            linkStyle = {display:'none'}
+		if (Parse.User.current().get('type')==='consumer') {
+            styleObj2={display:'block'}
+            linkStyle={display:'block'}
+        }
 
         var styleObj3 = {display:'none'}
         if (Parse.User.current().get('type')==='venue') styleObj3={display:'block'}
+
 
         var programLines = program.trim().split('\n')
 
@@ -79,6 +85,7 @@ var SingleVenue = React.createClass ({
                     <p>{date}</p>
 					<p>{guest}</p>
 					<p>{notes}</p>
+                    <a style={linkStyle} href={url}>Click Here to Visit their Profile</a>
 					<input type='submit' id='favoriteButton' value='Favorite!' onClick={favorite.bind(this)} style={styleObj2}/>
                     <input type='submit' id='deleteButton' value='Delete Event' onClick={destroy.bind(this)} style={styleObj3}/>
 				</div>

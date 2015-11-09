@@ -10,11 +10,10 @@ var VenueProfile = React.createClass({
 	_sendToRouter: function() {
 		var name = this.refs.name.getDOMNode().value,
 			add1 = this.refs.address1.getDOMNode().value,
-			add2 = this.refs.address2.getDOMNode().value,
 			city = this.refs.city.getDOMNode().value,
 			state = this.refs.state.getDOMNode().value,
 			zip = this.refs.zip.getDOMNode().value,
-            email = this.refs.email.getDOMNode().value,
+            email = Parse.User.current().get('email'),
             url = this.refs.url.getDOMNode().value
 
 		if (!name) {
@@ -24,9 +23,6 @@ var VenueProfile = React.createClass({
 		if (!add1) {
 			alert('Please Enter Address')
 			return
-		}
-		if (!add2) {
-			add2 = null
 		}
 		if (!city) {
 			alert('Please Enter City')
@@ -41,7 +37,7 @@ var VenueProfile = React.createClass({
 			return
 		}
 
-		this.props.profileUpdate(name,add1,add2,city,state,zip,email,url)
+		this.props.profileUpdate(name,add1,city,state,zip,email,url)
 	},
 
 
@@ -55,13 +51,11 @@ var VenueProfile = React.createClass({
 				<div id='venueProfile'>
 					<input id='venueName' type='text' placeholder='Venue Name' ref='name'/>
 					<input id='venueAddress1' type='text' placeholder='Street Address' ref='address1'/>
-					<input id='venueAddress2' type='text' placeholder='Apt or Suite #' ref='address2'/>
                     <div>
     					<input id='venueCity' type='text' placeholder='City' ref='city'/>
     					<input id='venueState' type='text' maxLength='2' placeholder='ST' ref='state'/>
     					<input id='venueZip' type='text' maxLength='5' placeholder='Zip' pattern='\d*' ref='zip'/>
                     </div>
-                    <input id='venueEmail' type='text' placeholder='Email' ref='email'/>
                     <input id='venueUrl' type='text' placeholder='Web Address' ref='url'/>
 				</div>
 				<div id='profileSubmitBox'>

@@ -19,6 +19,7 @@ import AvailableEvents from './availableEvents'
 import ConsumerFavorites from './consumerFavorites'
 import NearbyEvents from './nearbyEvents'
 import EventSearch from './eventSearch'
+import ProfileView from './profileView'
 import VenueView from './venueView'
 import VenueNewEntry from './venueNewEntry'
 import VenueProfile from './venueProfile'
@@ -52,8 +53,9 @@ var ProjectRouter = Backbone.Router.extend({
 		'consumer/home':'showConsumerView',
 		'consumer/events':'showAvailableEvents',
         'consumer/near':'showNearbyEvents',
-		'consumer/search/:comp':'showConsumerSearchView',
+		'consumer/search/:comp':'showSearchView',
 		'consumer/saved':'showConsumerEntries',
+        'profile/:name':'showVenueProfile',
 		'venue/home':'showVenueView',
 		'venue/new':'showVenueNewEntry',
 		'venue/edit':'editVenueProfile',
@@ -87,9 +89,9 @@ var ProjectRouter = Backbone.Router.extend({
 		})
 	},
 
-	showConsumerSearchView: function(comp) {
+	showSearchView: function(comp) {
         comp = comp[0].toUpperCase() + comp.slice(1)
-		console.log('showing search view',comp)
+		console.log('showing search view')
 
         var query = new Parse.Query(Event)
         query.matches('program',comp)
@@ -170,6 +172,17 @@ var ProjectRouter = Backbone.Router.extend({
 		React.render(<VenueNewEntry sendToRouter={this.newEventEntry} />,document.querySelector('#container'))
 	},
 
+    showVenueProfile: function(name) {
+        console.log('showing venue profile')
+        var query = new Parse.Query(Profile)
+        query.equalTo('name',name)
+        query.find({
+            success: (profile) => {
+                React.render(<ProfileView profile={profile[0]} />, document.querySelector('#container'))
+            }
+        });
+    },
+
 	editVenueProfile: function() {
 		console.log('editing venue profile')
 		React.render(<VenueProfile profileUpdate={this.updateVenueProfile} />,document.querySelector('#container'))
@@ -180,7 +193,7 @@ var ProjectRouter = Backbone.Router.extend({
 		React.render(<VenueView />, document.querySelector('#container'))
 	},
 
-	updateVenueProfile: function(name,add1,add2,city,state,zip,email,url) {
+	updateVenueProfile: function(name,add1,city,state,zip,email,url) {
 		var query = new Parse.Query(Profile)
 		query.equalTo("venueId", Parse.User.current().id)
 		query.find({
@@ -190,12 +203,11 @@ var ProjectRouter = Backbone.Router.extend({
 					update.set({
 						'name':name,
 						'add1':add1,
-						'add2':add2,
 						'city':city,
 						'state':state,
 						'zip':zip,
                         'email':email,
-                        'url':url
+                        'url':url,
 					})
 					update.save().then(function(){
 						var user = Parse.User.current()
@@ -210,13 +222,13 @@ var ProjectRouter = Backbone.Router.extend({
 					profile.set({
 						'name':name,
 						'add1':add1,
-						'add2':add2,
 						'city':city,
 						'state':state,
 						'zip':zip,
 						'venueId':Parse.User.current().id,
                         'email':email,
-                        'url':url
+                        'url':url,
+                        'username':Parse.User.current().get('username')
 					})
 					profile.save().then(function(){
 						var user = Parse.User.current()
@@ -302,7 +314,3 @@ var ProjectRouter = Backbone.Router.extend({
 })
 
 var pr = new ProjectRouter()
-
-window.onclose = function() {
-	Parse.User.logOut()
-}

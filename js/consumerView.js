@@ -1,4 +1,5 @@
-let React = require('react')
+let React = require('react'),
+    Parse = require('parse')
 
 
 var ConsumerView = React.createClass({
@@ -27,16 +28,20 @@ var ConsumerView = React.createClass({
 	},
 
 	render: function() {
+        var user = Parse.User.current().get('username')
+
+        var styleObj = {textAlign:'center'}
 
 		return (
-			<div id='ConsumerView'>
+			<div id='ConsumerView' style={styleObj}>
 				<div id='logOut'>
 					<input id='logOutButton' type='submit' value='Log Out' onClick={this._logOut} />
 				</div>
+                <h2>Welcome, {user}!</h2>
 				<div id='consumerMenu'>
+                    <input id='consumerEventSearch' type='text' placeholder='Search for Events' onKeyPress={this._handleEnter}/>
 					<input id='availableEvents' type='submit' value='View Available Events' onClick={this._showAvailableEvents} />
                     <input id='nearbyEvents' type='submit' value='View Nearby Events' onClick={this._showNearbyEvents} />
-					<input id='consumerEventSearch' type='text' placeholder='Search for Events' onKeyPress={this._handleEnter}/>
 					<input id='consumerSavedEventsButton' type='submit' value='View Saved Events' onClick={this._showSavedEvents} />
 				</div>
 			</div>
