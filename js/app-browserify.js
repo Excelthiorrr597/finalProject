@@ -71,6 +71,7 @@ var ProjectRouter = Backbone.Router.extend({
 
 	showAvailableEvents: function() {
 		var query = new Parse.Query(Event)
+        document.querySelector('#container').innerHTML = `<img src='./images/loading2.gif'>`
 		query.find({
 			success: function(events) {
 				React.render(<AvailableEvents events={events}/>, document.querySelector('#container'))
@@ -80,6 +81,7 @@ var ProjectRouter = Backbone.Router.extend({
 
 	showConsumerEntries: function() {
 		console.log('showing consumer entries')
+        document.querySelector('#container').innerHTML = `<img src='./images/loading2.gif'>`
 		var query = new Parse.Query(Favorite)
 		query.equalTo('userId',Parse.User.current().id)
 		query.find({
@@ -92,7 +94,7 @@ var ProjectRouter = Backbone.Router.extend({
 	showSearchView: function(comp) {
         comp = comp[0].toUpperCase() + comp.slice(1)
 		console.log('showing search view')
-
+        document.querySelector('#container').innerHTML = `<img src='./images/loading2.gif'>`
         var query = new Parse.Query(Event)
         query.matches('program',comp)
         query.find().then(function(events){
@@ -103,6 +105,7 @@ var ProjectRouter = Backbone.Router.extend({
 	showConsumerView: function() {
 		console.log('showing consumer view')
 		var query = new Parse.Query(Event)
+        document.querySelector('#container').innerHTML = `<img src='./images/loading2.gif'>`
 		query.find({
 			success: function(events) {
 				React.render(<ConsumerView events={events}/>, document.querySelector('#container'))
@@ -116,6 +119,7 @@ var ProjectRouter = Backbone.Router.extend({
             title:'Getting your location. May take a few seconds.',
             type:'success'
         })
+        document.querySelector('#container').innerHTML = `<img src='./images/loading2.gif'>`
         navigator.geolocation.getCurrentPosition(function(loc){
             var lat = loc.coords.latitude,
                 lng = loc.coords.longitude
@@ -158,6 +162,7 @@ var ProjectRouter = Backbone.Router.extend({
 
 	showVenueEntries: function() {
 		console.log('showing saved entries')
+        document.querySelector('#container').innerHTML = `<img src='./images/loading2.gif'>`
 		var query = new Parse.Query(Event)
 		query.equalTo('venueId',Parse.User.current().id)
 		query.find({
@@ -174,6 +179,7 @@ var ProjectRouter = Backbone.Router.extend({
 
     showVenueProfile: function(name) {
         console.log('showing venue profile')
+        document.querySelector('#container').innerHTML = `<img src='./images/loading2.gif'>`
         var query = new Parse.Query(Profile)
         query.equalTo('name',name)
         query.find({
@@ -195,6 +201,7 @@ var ProjectRouter = Backbone.Router.extend({
 
 	updateVenueProfile: function(name,add1,city,state,zip,email,url) {
 		var query = new Parse.Query(Profile)
+        document.querySelector('#container').innerHTML = `<img src='./images/loading2.gif'>`
 		query.equalTo("venueId", Parse.User.current().id)
 		query.find({
 			success: function(profile) {

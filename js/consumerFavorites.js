@@ -38,7 +38,7 @@ var ConsumerFavorites = React.createClass({
 
 	render: function(){
 		return (
-			<div>
+			<div id='eventsList'>
 				<div id='logOut'>
 					<input id='logOutButton' type='submit' value='Log Out' onClick={this._logOut} />
 				</div>
