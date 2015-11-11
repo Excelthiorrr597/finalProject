@@ -27,6 +27,10 @@ var ConsumerView = React.createClass({
 		location.hash = 'consumer/saved'
 	},
 
+    _showVenueList: function() {
+        location.hash ='consumer/list'
+    },
+
 	render: function() {
         var user = Parse.User.current().get('username')
 
@@ -43,6 +47,7 @@ var ConsumerView = React.createClass({
 					<input id='availableEvents' type='submit' value='View Available Events' onClick={this._showAvailableEvents} />
                     <input id='nearbyEvents' type='submit' value='View Nearby Events' onClick={this._showNearbyEvents} />
 					<input id='consumerSavedEventsButton' type='submit' value='View Saved Events' onClick={this._showSavedEvents} />
+                    <input id='venueListButton' type='submit' value='View a List of Venues' onClick={this._showVenueList} />
 				</div>
 			</div>
 			)

@@ -60,8 +60,8 @@ var ProjectRouter = Backbone.Router.extend({
 		'venue/home':'showVenueView',
 		'venue/new':'showVenueNewEntry',
 		'venue/edit':'editVenueProfile',
-		'venue/saved':'showVenueEntries'
-		//'*default':'showDefaultView'
+		'venue/saved':'showVenueEntries',
+		'*default':'showDefaultView'
 	},
 
 	logOutUser: function() {
@@ -197,7 +197,13 @@ var ProjectRouter = Backbone.Router.extend({
         query.equalTo('name',name)
         query.find({
             success: (profile) => {
-                React.render(<ProfileView profile={profile[0]} />, document.querySelector('#container'))
+                var q = new Parse.Query(Event)
+                q.equalTo('name',name)
+                q.find({
+                    success: (events) => {
+                        React.render(<ProfileView events={events} profile={profile[0]} />, document.querySelector('#container'))
+                    }
+                })
             }
         });
     },

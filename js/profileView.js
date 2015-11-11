@@ -1,3 +1,5 @@
+import SingleVenue from './singleVenue'
+
 let React = require('react'),
     Parse = require('parse'),
     $ = require('jquery')
@@ -6,6 +8,29 @@ var ProfileView = React.createClass({
 
     componentDidMount: function() {
         this._initMap()
+    },
+
+    getInitialState: function() {
+        return {
+            focusId: null
+        }
+    },
+
+    _showDetails: function(objectId) {
+        if (this.state.focusId === objectId) {
+            this.setState({
+                focusId: null
+            })
+        }
+        else {
+            this.setState({
+                focusId: objectId
+            })
+        }
+    },
+
+    _getEvents: function(event) {
+        return <SingleVenue page='profile' key={event.id} state={this.state} event={event} _walkieTalkie={this._showDetails} />
     },
 
     _goHome: () => {
@@ -40,7 +65,12 @@ var ProfileView = React.createClass({
             url = `http://${profile.get('url')}`,
             citstzip = `${city}, ${state} ${zip}`,
             lat = profile.get('lat'),
-            lng = profile.get('lng')
+            lng = profile.get('lng'),
+            styleObj = {
+                textAlign: 'center'
+            }
+
+
 
         return (
             <div id='profile'>
@@ -52,6 +82,9 @@ var ProfileView = React.createClass({
                     <p>{email}</p>
                     <a href={url} target='_'>Visit our website!</a>
                     <div id="map"></div>
+                    <div id='profileEvents' style={styleObj}>
+                        {this.props.events.map(this._getEvents)}
+                    </div>
                 </div>
             </div>
             )

@@ -36,6 +36,7 @@ var SingleList = React.createClass({
                 <p id='listTitle'>{name}</p>
                 <input type='button' id='listButton' value={plusMinus} onClick={walkieTalkie.bind(this)}/>
                 <div id='listDetails' style={styleObj}>
+                    <p>{address}</p>
                     <p>{citstzip}</p>
                     <a href={url}>Click Here to Visit their Profile</a>
                 </div>

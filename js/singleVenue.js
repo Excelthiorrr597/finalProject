@@ -67,6 +67,16 @@ var SingleVenue = React.createClass ({
 				width:'500px',
                 backgroundColor: 'white'
 			}
+            if (this.props.page === 'profile') {
+                linkStyle = {display:'none'}
+                styleObj = {
+                    display:'block',
+                    margin:'0 auto',
+                    borderBottom:'2px dashed slategrey',
+                    width:'500px',
+                    backgroundColor: 'peachpuff'
+                }
+            }
             plusMinus = '-'
 		}
 
@@ -76,6 +86,7 @@ var SingleVenue = React.createClass ({
             styleObj2={display:'block'}
             linkStyle={display:'block'}
         }
+
 
         var styleObj3 = {display:'none'}
         if (Parse.User.current().get('type')==='venue') styleObj3={display:'block'}
