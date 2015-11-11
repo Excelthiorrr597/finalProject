@@ -98,9 +98,21 @@ var ProjectRouter = Backbone.Router.extend({
 		console.log('showing search view')
         document.querySelector('#container').innerHTML = `<img id='loading' src='./images/loading2.gif'>`
         var query = new Parse.Query(Event)
-        query.matches('programArray',comp)
+
         query.find().then(function(events){
-            React.render(<EventSearch events={events}/>,document.querySelector('#container'))
+            var filteredEvents = events.filter(function(event){
+                var programObjects = event.get('programArray')
+                var i = 0
+                while (i < programObjects.length) {
+                    if (comp === programObjects[i].composer) {
+                        return true
+                    }
+                    i++
+                }
+                return false
+            })
+            console.log(filteredEvents)
+            React.render(<EventSearch events={filteredEvents}/>,document.querySelector('#container'))
         })
 	},
 

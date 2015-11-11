@@ -228,11 +228,21 @@ a:visited {
     display: block;
 }
 
-#eventProgram,#eventNotes {
+#eventNotes {
     display: block;
     min-height: 200px;
     width: 500px;
     margin-left: 20px;
+}
+
+#programContent {
+    border-style: none;
+    border-radius: 20%;
+    color: white;
+    background-color: slategrey;
+    margin: 10px auto;
+    margin-right: 30px;
+    margin-left: 10px;
 }
 
 #backButton,#eventSubmit,#profileSubmit {
@@ -244,7 +254,7 @@ a:visited {
 }
 
 #eventSubmitBox, {
-    text-align: right;
+    text-align: center;
 }
 
 #programContainer,#singleListContainer {

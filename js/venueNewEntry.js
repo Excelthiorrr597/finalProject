@@ -25,7 +25,7 @@ var VenueNewEntry = React.createClass({
 
         newEntry.appendChild(newPiece)
         newEntry.appendChild(newComposer)
-        document.querySelector('#programContainer').appendChild(newEntry)
+        document.querySelector('#programContent').appendChild(newEntry)
     },
 
 	_goBack: function() {
@@ -115,7 +115,7 @@ var VenueNewEntry = React.createClass({
                     <div>
 					   <input id='eventDate' type='datetime-local' ref='date' />
                     </div>
-                    <div id='programContainer'>
+                    <div id='programContent'>
                         <input type='submit' value='Add a New Piece' onClick={this._addPiece}/>
                         <input type='submit' value='Submit Program' onClick={this._pushToArray} />
                     </div>

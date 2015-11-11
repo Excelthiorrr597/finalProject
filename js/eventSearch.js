@@ -41,8 +41,8 @@ var EventSearch = React.createClass({
             <div>
                 <div id='logOut'>
                     <input id='logOutButton' type='submit' value='Log Out' onClick={this._logOut} />
+                    <input id='backButton' type='submit' value='Go Back Home' onClick={this._goBack} />
                 </div>
-                <input id='backButton' type='submit' value='Go Back Home' onClick={this._goBack} />
                 {this.props.events.map(this._getQueriedEvents)}
             </div>
             )
