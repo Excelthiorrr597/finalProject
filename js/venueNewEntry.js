@@ -1,20 +1,61 @@
-let React = require('react')
+let React = require('react'),
+    $ = require('jquery')
 
 var VenueNewEntry = React.createClass({
 
+    componentDidMount: function() {
+        this._newEvent = []
+    },
+
     _addPiece: function() {
         console.log('clicked')
-        document.querySelector('#programContainer').appendChild(`<p>Hi</p>`)
+        var newPiece = document.createElement('input'),
+            newComposer = document.createElement('input'),
+            newEntry = document.createElement('div')
+
+        window.newEvent = this._newEvent
+
+        newPiece.setAttribute('ref','piece')
+        newPiece.placeholder = 'Enter Piece'
+        newPiece.className = 'piece'
+
+        newComposer.setAttribute('ref','composer')
+        newComposer.placeholder = 'Enter Composer'
+        newComposer.className = 'composer'
+
+        newEntry.appendChild(newPiece)
+        newEntry.appendChild(newComposer)
+        document.querySelector('#programContainer').appendChild(newEntry)
     },
 
 	_goBack: function() {
 		location.hash = 'venue/home'
 	},
 
+    _pushToArray: function(){
+        var pieces = document.getElementsByClassName('piece'),
+            composers = document.getElementsByClassName('composer'),
+            i = 0
+
+        while ( i < pieces.length) {
+            var piece = pieces[i].value,
+                composer = composers[i].value,
+                event = {}
+
+            event = {
+                piece:piece,
+                composer:composer
+            }
+            this._newEvent.push(event)
+            i++
+        }
+        console.log(this._newEvent)
+    },
+
 	_sendToRouter: function() {
 		var title = this.refs.title.getDOMNode().value,
 			date = this.refs.date.getDOMNode().value,
-			program = this.refs.program.getDOMNode().value,
+			program = this._newEvent,
 			guest = this.refs.guestArtist.getDOMNode().value,
 			notes = this.refs.programNotes.getDOMNode().value
 
@@ -51,7 +92,7 @@ var VenueNewEntry = React.createClass({
 			alert('Event must include a Date')
 			return
 		}
-		if(!program) {
+		if(program.length === 0) {
 			alert('Event needs Program Information')
 			return
 		}
@@ -65,10 +106,7 @@ var VenueNewEntry = React.createClass({
 		this.props.sendToRouter(title,date,program,guest,notes)
 	},
 
-
-
 	render: function() {
-        window.m = document.querySelector('#programContainer')
 		return (
 			<div>
 				<input id='backButton' type='submit' value='Go Back Home' onClick={this._goBack} />
@@ -78,7 +116,8 @@ var VenueNewEntry = React.createClass({
 					   <input id='eventDate' type='datetime-local' ref='date' />
                     </div>
                     <div id='programContainer'>
-                        <button type='button' onClick={this._addPiece}/>
+                        <input type='submit' value='Add a New Piece' onClick={this._addPiece}/>
+                        <input type='submit' value='Submit Program' onClick={this._pushToArray} />
                     </div>
 					<input id='eventGuests' type='text' placeholder='Guest Artists (optional)' ref='guestArtist' />
 					<textarea id='eventNotes' type='text' placeholder='Any additional notes or comments you want to include' ref='programNotes' />

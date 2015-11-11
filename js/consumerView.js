@@ -37,7 +37,7 @@ var ConsumerView = React.createClass({
 				<div id='logOut'>
 					<input id='logOutButton' type='submit' value='Log Out' onClick={this._logOut} />
 				</div>
-                <h2>Welcome, {user}!</h2>
+                <h2>Welcome {user}!</h2>
 				<div id='consumerMenu'>
                     <input id='consumerEventSearch' type='text' placeholder='Search for Events' onKeyPress={this._handleEnter}/>
 					<input id='availableEvents' type='submit' value='View Available Events' onClick={this._showAvailableEvents} />

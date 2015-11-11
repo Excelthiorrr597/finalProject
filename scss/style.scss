@@ -247,15 +247,15 @@ a:visited {
     text-align: right;
 }
 
-#programContainer {
+#programContainer,#singleListContainer {
     text-align: center;
 }
 
-#programTitle {
+#programTitle,#listTitle {
     display: inline;
 }
 
-#programButton {
+#programButton,#listButton {
     background: none;
     outline: none;
     border: none;
@@ -276,7 +276,12 @@ a:visited {
     }
 }
 
-
+#loading {
+    position: fixed;
+    left: 20%;
+    top: 12%;
+    width: 800px;
+}
 
 
 

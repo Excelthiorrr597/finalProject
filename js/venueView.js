@@ -33,7 +33,7 @@ var VenueView = React.createClass({
 					<input id='logOutButton' type='submit' value='Log Out' onClick={this._logOut} />
 				</div>
 				<div id='venueMenu'>
-					<h2>What can I do for you, {venue}?</h2>
+					<h2>Welcome {venue}!</h2>
                     <input id='venueProfileViewButton' type='submit' value='View Profile' onClick={this._viewProfileView} />
 					<input id='venueProfileEditButton' type='submit' value='Edit Profile' onClick={this._editProfileView} />
 					<input id='venueNewEventButton' type='submit' value='Enter New Event' onClick={this._enterEventView} />

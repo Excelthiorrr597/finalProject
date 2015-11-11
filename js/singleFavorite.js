@@ -10,11 +10,16 @@ var SingleFavorite = React.createClass ({
 		var event = this.props.event,
 			title = event.get('title'),
 			date = event.get('date'),
-			program = event.get('program'),
+			programArray = event.get('programArray'),
 			guest = event.get('guest'),
 			notes = event.get('notes'),
 			eventId = event.id,
-            name = event.get('name')
+            name = event.get('name'),
+            url = `#profile/${name}`
+
+        var programNodes = programArray.map(function(program){
+            return <p>{program.piece}, Composition by {program.composer}</p>
+        })
 
 		if (!guest) guest = 'No Guest Artist'
 
@@ -37,13 +42,12 @@ var SingleFavorite = React.createClass ({
 			styleObj = {
 				display:'block',
 				margin:'0 auto',
-				'borderBottom':'2px dashed slategrey',
-				width:'500px'
+				borderBottom:'2px dashed slategrey',
+				width:'500px',
+                backgroundColor:'white'
 			}
             plusMinus = '-'
 		}
-
-        var programLines = program.trim().split('\n')
 
         return (
             <div id='programContainer' key={eventId}>
@@ -51,10 +55,10 @@ var SingleFavorite = React.createClass ({
                 <input type='button' id='programButton' value={plusMinus} onClick={walkieTalkie.bind(this)}/>
                 <div id='programDetails' style={styleObj}>
                     <p>{name}</p>
-                    {programLines.map((line) => <p>{line}</p>)}
                     <p>{date}</p>
                     <p>{guest}</p>
                     <p>{notes}</p>
+                    <a href={url}>Click here to Visit Their Profile!</a>
                     <input type='submit' id='unfavoriteButton' value='Unfavorite!' onClick={unfavorite.bind(this)} />
                 </div>
             </div>

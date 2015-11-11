@@ -1,8 +1,8 @@
-import SingleVenue from './singleVenue'
+import SingleList from './singleList'
 
 let React = require('react')
 
-var NearbyEvents = React.createClass({
+var VenueList = React.createClass({
 
     getInitialState: function() {
         return {
@@ -10,11 +10,7 @@ var NearbyEvents = React.createClass({
         }
     },
 
-    _getNearbyEvents: function(event) {
-        return <SingleVenue key={event.id} state={this.state} event={event} _walkieTalkie={this._showDetails} />
-    },
-
-    _goBack: function() {
+    _goHome: function() {
         location.hash = 'consumer/home'
     },
 
@@ -22,16 +18,20 @@ var NearbyEvents = React.createClass({
         location.hash = 'logout'
     },
 
-    _showDetails: function(objectId) {
+    _listProfiles: function(profile) {
+        window.pron = profile
+        return <SingleList singleProfile={profile} profileId={profile.id} state={this.state} _walkieTalkie={this._showDetails} />
+    },
 
-        if (this.state.focusId === objectId) {
+    _showDetails: function(profileId) {
+        if (this.state.focusId === profileId) {
             this.setState({
                 focusId: null
             })
         }
         else {
             this.setState({
-                focusId: objectId
+                focusId: profileId
             })
         }
     },
@@ -41,14 +41,12 @@ var NearbyEvents = React.createClass({
             <div>
                 <div id='logOut'>
                     <input id='logOutButton' type='submit' value='Log Out' onClick={this._logOut} />
-                    <input id='backButton' type='submit' value='Go Back Home' onClick={this._goBack} />
+                    <input id='backButton' type='submit' value='Go Back Home' onClick={this._goHome} />
                 </div>
-                {this.props.events.map(this._getNearbyEvents)}
+                {this.props.profiles.map(this._listProfiles)}
             </div>
             )
     }
 })
 
-
-
-export default NearbyEvents
+export default VenueList

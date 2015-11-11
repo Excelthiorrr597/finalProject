@@ -11,12 +11,19 @@ var SingleVenue = React.createClass ({
 		var event = this.props.event,
 			title = event.get('title'),
 			date = event.get('date'),
-			program = event.get('program'),
+			programArray = event.get('programArray'),
 			guest = event.get('guest'),
 			notes = event.get('notes'),
 			objectId = event.id,
             name = event.get('name'),
             url = `#profile/${name}`
+
+
+        console.log(programArray)
+
+        var programNodes = programArray.map(function(program){
+                return <p>{program.piece}, Composition by {program.composer}</p>
+        })
 
 		if (!guest) guest = 'No Guest Artist'
 
@@ -32,12 +39,12 @@ var SingleVenue = React.createClass ({
                 'name':name,
 				'title':title,
 				'date':date,
-				'program':program,
 				'guest':guest,
 				'notes':notes,
 				'eventId':objectId,
 				'userId':Parse.User.current().id
 			})
+            favorite.set('programArray',programArray)
 			favorite.save().then(function(){
 				swal({title:'Saved to your favorites',type:'success'})
 				location.hash = 'consumer/home'
@@ -56,8 +63,9 @@ var SingleVenue = React.createClass ({
 			styleObj = {
 				display:'block',
 				margin:'0 auto',
-				'borderBottom':'2px dashed slategrey',
-				width:'500px'
+				borderBottom:'2px dashed slategrey',
+				width:'500px',
+                backgroundColor: 'white'
 			}
             plusMinus = '-'
 		}
@@ -73,16 +81,14 @@ var SingleVenue = React.createClass ({
         if (Parse.User.current().get('type')==='venue') styleObj3={display:'block'}
 
 
-        var programLines = program.trim().split('\n')
-
 		return (
 			<div id='programContainer' key={objectId}>
 				<p id='programTitle'>{title}</p>
 				<input type='button' id='programButton' value={plusMinus} onClick={walkieTalkie.bind(this)}/>
 				<div id='programDetails' style={styleObj}>
                     <p>{name}</p>
-					{programLines.map((line) => <p>{line}</p>)}
                     <p>{date}</p>
+                    {programNodes}
 					<p>{guest}</p>
 					<p>{notes}</p>
                     <a style={linkStyle} href={url}>Click Here to Visit their Profile</a>

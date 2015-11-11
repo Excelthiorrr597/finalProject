@@ -27,7 +27,6 @@ var ProfileView = React.createClass({
             map:map,
             position: {lat:lat,lng:lng}
         })
-
     },
 
     render: function() {
@@ -51,14 +50,12 @@ var ProfileView = React.createClass({
                     <p>{add1}</p>
                     <p>{citstzip}</p>
                     <p>{email}</p>
-                    <a href={url}>Visit our website!</a>
+                    <a href={url} target='_'>Visit our website!</a>
                     <div id="map"></div>
                 </div>
             </div>
             )
     }
 })
-
-$(window).load
 
 export default ProfileView
