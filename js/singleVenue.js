@@ -18,9 +18,6 @@ var SingleVenue = React.createClass ({
             name = event.get('name'),
             url = `#profile/${name}`
 
-
-        console.log(programArray)
-
         var programNodes = programArray.map(function(program){
                 return <p>{program.piece}, Composition by {program.composer}</p>
         })

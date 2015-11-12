@@ -10,14 +10,6 @@ var VenueList = React.createClass({
         }
     },
 
-    _goHome: function() {
-        location.hash = 'consumer/home'
-    },
-
-    _logOut: function() {
-        location.hash = 'logout'
-    },
-
     _listProfiles: function(profile) {
         window.pron = profile
         return <SingleList singleProfile={profile} profileId={profile.id} state={this.state} _walkieTalkie={this._showDetails} />
@@ -37,11 +29,14 @@ var VenueList = React.createClass({
     },
 
     render: function() {
+        var styleObj = {
+            textAlign:'center'
+        }
         return (
-            <div>
-                <div id='logOut'>
-                    <input id='logOutButton' type='submit' value='Log Out' onClick={this._logOut} />
-                    <input id='backButton' type='submit' value='Go Back Home' onClick={this._goHome} />
+            <div style={styleObj}>
+                <div id='linkHolder'>
+                    <a id="logoutLink" href="#logout">Log Out</a>
+                    <a id="backLink" href="#consumer/home">Go Back Home</a>
                 </div>
                 {this.props.profiles.map(this._listProfiles)}
             </div>

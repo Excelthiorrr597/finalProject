@@ -3,41 +3,28 @@ let React = require('react'),
 
 var VenueView = React.createClass({
 
-	_editProfileView: function() {
-		location.hash = 'venue/edit'
-	},
-
-	_enterEventView: function() {
-		location.hash = 'venue/new'
-	},
-
-	_logOut: function() {
-		location.hash = 'logout'
-	},
-
     _viewProfileView: function() {
         var name = Parse.User.current().get('name')
         location.hash = `profile/${name}`
     },
 
-	_viewSavedEvents: function() {
-		location.hash = 'venue/saved'
-	},
-
 	render: function() {
-        var venue = Parse.User.current().get('name')
+        var venue = Parse.User.current().get('name'),
+            url = `#profile/${venue}`
 
 		return (
 			<div>
 				<div id='logOut'>
-					<input id='logOutButton' type='submit' value='Log Out' onClick={this._logOut} />
+					<a id="logoutLink" href="#logout">Log Out!</a>
 				</div>
 				<div id='venueMenu'>
 					<h2>Welcome {venue}!</h2>
-                    <input id='venueProfileViewButton' type='submit' value='View Profile' onClick={this._viewProfileView} />
-					<input id='venueProfileEditButton' type='submit' value='Edit Profile' onClick={this._editProfileView} />
-					<input id='venueNewEventButton' type='submit' value='Enter New Event' onClick={this._enterEventView} />
-					<input id='venueSavedEventButton' type='submit' value='View/Edit Saved Events' onClick={this._viewSavedEvents} />
+                    <div id="linkHolder">
+    					<a id="profileViewLink" href={url}>View Profile</a>
+                        <a id="profileEditLink" href="#venue/edit">Edit Profile</a>
+    					<a id="venueNewEventLink" href="#venue/new">Enter New Event</a>
+                        <a id="venueSavedLink" href="#venue/saved">View Saved Events</a>
+                    </div>
 				</div>
 			</div>
 			)

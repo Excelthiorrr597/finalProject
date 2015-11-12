@@ -14,14 +14,6 @@ var EventSearch = React.createClass({
         return <SingleVenue key={event.id} state={this.state} event={event} _walkieTalkie={this._showDetails} />
     },
 
-    _goBack: function() {
-        location.hash = 'consumer/home'
-    },
-
-    _logOut: function() {
-        location.hash = 'logout'
-    },
-
     _showDetails: function(objectId) {
 
         if (this.state.focusId === objectId) {

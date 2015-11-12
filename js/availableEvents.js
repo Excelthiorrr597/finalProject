@@ -14,14 +14,6 @@ var AvailableEvents = React.createClass({
 		return <SingleVenue key={event.id} state={this.state} event={event} _walkieTalkie={this._showDetails} />
 	},
 
-	_goBack: function() {
-		location.hash = 'consumer/home'
-	},
-
-	_logOut: function() {
-		location.hash = 'logout'
-	},
-
 	_showDetails: function(objectId) {
 
 		if (this.state.focusId === objectId) {
@@ -37,12 +29,16 @@ var AvailableEvents = React.createClass({
 	},
 
 	render: function() {
+        var styleObj = {
+            textAlign:'center'
+        }
 		return (
-			<div>
-				<div id='logOut'>
-					<input id='logOutButton' type='submit' value='Log Out' onClick={this._logOut} />
+			<div style={styleObj}>
+				<div id='linkHolder'>
+					<a id="logoutLink" href="#logout">Log Out</a>
+                    <a id="backLink" href="#consumer/home">Go Back Home</a>
 				</div>
-                <input id='backButton' type='submit' value='Go Back Home' onClick={this._goBack} />
+                <h2>Here are all Available Events</h2>
 				<div>
 					{this.props.events.map(this._getEvents)}
 				</div>

@@ -66,7 +66,10 @@ var ProjectRouter = Backbone.Router.extend({
 
 	logOutUser: function() {
 		console.log('logging user out')
-		Parse.User.logOut()
+		Parse.User.logOut().then(function(){
+            swal({title:'Successfully Logged Out',type:'success',animation:'slide-from-top'})
+        })
+
 		location.hash = 'login'
 	},
 
@@ -111,7 +114,6 @@ var ProjectRouter = Backbone.Router.extend({
                 }
                 return false
             })
-            console.log(filteredEvents)
             React.render(<EventSearch events={filteredEvents}/>,document.querySelector('#container'))
         })
 	},
@@ -305,7 +307,7 @@ var ProjectRouter = Backbone.Router.extend({
 	},
 
 
-	newEventEntry: function(title,date,program,guest,notes) {
+	newEventEntry: function(title,date,programArray,guest,notes) {
 		var	event = new Event()
 		event.set({
 			'name':Parse.User.current().get('name'),
@@ -316,7 +318,7 @@ var ProjectRouter = Backbone.Router.extend({
 			'city':Parse.User.current().get('city'),
 			'venueId':Parse.User.current().id
 		})
-        event.set('programArray',program)
+        event.set('programArray',programArray)
 		event.save().then(function(){
 			swal({title:'Saved to Database',type:'success'})
 		},function(){

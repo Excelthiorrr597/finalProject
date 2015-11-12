@@ -37,12 +37,16 @@ var NearbyEvents = React.createClass({
     },
 
     render: function() {
+        var styleObj = {
+            textAlign:'center'
+        }
         return (
-            <div>
-                <div id='logOut'>
-                    <input id='logOutButton' type='submit' value='Log Out' onClick={this._logOut} />
-                    <input id='backButton' type='submit' value='Go Back Home' onClick={this._goBack} />
+            <div style={styleObj}>
+                <div id='linkHolder'>
+                    <a id="logoutLink" href="#logout">Log Out</a>
+                    <a id="backLink" href="#consumer/home">Go Back Home</a>
                 </div>
+                <h2>These are the Events in your Area</h2>
                 {this.props.events.map(this._getNearbyEvents)}
             </div>
             )

@@ -1,5 +1,6 @@
 let React = require('react'),
-    $ = require('jquery')
+    $ = require('jquery'),
+    swal = require('sweetalert')
 
 var VenueNewEntry = React.createClass({
 
@@ -85,15 +86,15 @@ var VenueNewEntry = React.createClass({
         date = wkday + ', ' + month + ' ' + days + ', ' + years + ' at ' + hours + ':' + minutes + ' ' + timePeriod
 
 		if (!title) {
-			alert('Fill in the Title Field')
+			swal({text:'Fill in the Title Field',type:'error'})
 			return
 		}
 		if (!date) {
-			alert('Event must include a Date')
+			swal({text:'Event must include a Date',type:'error'})
 			return
 		}
 		if(program.length === 0) {
-			alert('Event needs Program Information')
+			swal({text:'Event needs Program Information',type:'error'})
 			return
 		}
 		if(!guest) {
@@ -109,15 +110,17 @@ var VenueNewEntry = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<input id='backButton' type='submit' value='Go Back Home' onClick={this._goBack} />
-				<div id='newEventWrapper'>
+                <div id="logOut">
+				    <a id="backLink" href="#venue/home">Go Back Home</a>
+				</div>
+                <div id='newEventWrapper'>
 					<input id='eventTitle' type='text' placeholder='Event Title' ref='title' />
                     <div>
 					   <input id='eventDate' type='datetime-local' ref='date' />
                     </div>
                     <div id='programContent'>
-                        <input type='submit' value='Add a New Piece' onClick={this._addPiece}/>
-                        <input type='submit' value='Submit Program' onClick={this._pushToArray} />
+                        <input type='submit' id="programAdd" value='Add a New Piece' onClick={this._addPiece}/>
+                        <input type='submit' id="programAdd" value='Submit Program' onClick={this._pushToArray} />
                     </div>
 					<input id='eventGuests' type='text' placeholder='Guest Artists (optional)' ref='guestArtist' />
 					<textarea id='eventNotes' type='text' placeholder='Any additional notes or comments you want to include' ref='programNotes' />

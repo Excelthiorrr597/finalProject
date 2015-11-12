@@ -33,11 +33,6 @@ var ProfileView = React.createClass({
         return <SingleVenue page='profile' key={event.id} state={this.state} event={event} _walkieTalkie={this._showDetails} />
     },
 
-    _goHome: () => {
-        if (Parse.User.current().get('type')==='venue') location.hash = 'venue/home'
-        else location.hash = 'consumer/home'
-    },
-
     _initMap: function() {
         console.log('initializing map')
         var lat = this.props.profile.get('lat'),
@@ -68,13 +63,18 @@ var ProfileView = React.createClass({
             lng = profile.get('lng'),
             styleObj = {
                 textAlign: 'center'
-            }
+            },
+            url = '#consumer/home'
+
+        if (Parse.User.current().get('type')==='venue') url = '#venue/home'
 
 
 
         return (
             <div id='profile'>
-                <input type='submit' value='Go Home' onClick={this._goHome} id='backButton'/>
+                <div id="logOut">
+                    <a id="backLink" href={url}>Go Back Home</a>
+                </div>
                 <div id='profileContent'>
                     <p>{name}</p>
                     <p>{add1}</p>

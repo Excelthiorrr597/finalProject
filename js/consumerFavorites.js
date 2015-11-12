@@ -39,11 +39,11 @@ var ConsumerFavorites = React.createClass({
 	render: function(){
 		return (
 			<div id='eventsList'>
-				<div id='logOut'>
-					<input id='logOutButton' type='submit' value='Log Out' onClick={this._logOut} />
+				<div id='linkHolder'>
+					<a id="logoutLink" href="#logout">Log Out</a>
+                    <a id="backLink" href="#comsumer/home">Go Back Home</a>
 				</div>
-                <input id='backButton' type='submit' value='Go Back Home' onClick={this._goBack} />
-                <h2>Here are your Favorited Events!</h2>
+                <h2>These are your Favorited Events!</h2>
 				<div>
 					{this.props.events.map(this._singleFavorite)}
 				</div>
