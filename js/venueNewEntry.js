@@ -96,7 +96,7 @@ var VenueNewEntry = React.createClass({
 			return
 		}
 		if(program.length === 0) {
-			swal({title:'Event needs Program Information',type:'error'})
+			swal({title:"Don't forget to Submit Program Information",type:'error'})
 			return
 		}
 		if(!guest) {

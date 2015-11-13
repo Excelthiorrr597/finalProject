@@ -42,8 +42,8 @@ var ConsumerView = React.createClass({
 	_handleKeyStroke: function(event) {
         var query = event.target.value,
             filteredArray = this.compArray.filter(function(comp){
-                return comp.contains(query)
-            })
+                return comp.toLowerCase().contains(query.toLowerCase())
+            }).map((comp) => comp + '_' + query)
         this.setState({
             options:filteredArray,
             inputlength:query.length
@@ -94,7 +94,14 @@ var OptionsHolder = React.createClass({
         },
             url=`#consumer/search/${comp}`
         if (this.props.length < 1) styleObj={display:'none'}
-        return <div key={comp} style={styleObj} className="option"><a href={url}>{comp}</a></div>
+        var compNquery = comp.split('_'),
+            comp = compNquery[0],
+            query = compNquery[1],
+            comp1 = comp.slice(0,comp.indexOf(query)),
+            comp2 = comp.slice(comp.indexOf(query) + query.length)
+
+        var compNode = <a href={url}>{comp1}<strong>{query}</strong>{comp2}</a>
+        return <div key={comp} style={styleObj} className="option">{compNode}</div>
     },
 
     render: function() {
