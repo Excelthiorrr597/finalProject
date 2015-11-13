@@ -50,6 +50,8 @@ var VenueNewEntry = React.createClass({
             this._newEvent.push(event)
             i++
         }
+
+        swal({title:'Pieces Prepared for Submitting',type:'success',animation:'slide-from-bottom'})
         console.log(this._newEvent)
     },
 
@@ -86,15 +88,15 @@ var VenueNewEntry = React.createClass({
         date = wkday + ', ' + month + ' ' + days + ', ' + years + ' at ' + hours + ':' + minutes + ' ' + timePeriod
 
 		if (!title) {
-			swal({text:'Fill in the Title Field',type:'error'})
+			swal({title:'Fill in the Title Field',type:'error'})
 			return
 		}
 		if (!date) {
-			swal({text:'Event must include a Date',type:'error'})
+			swal({title:'Event must include a Date',type:'error'})
 			return
 		}
 		if(program.length === 0) {
-			swal({text:'Event needs Program Information',type:'error'})
+			swal({title:'Event needs Program Information',type:'error'})
 			return
 		}
 		if(!guest) {

@@ -64,16 +64,16 @@ var ProfileView = React.createClass({
             styleObj = {
                 textAlign: 'center'
             },
-            url = '#consumer/home'
+            urlBack = '#consumer/home'
 
-        if (Parse.User.current().get('type')==='venue') url = '#venue/home'
+        if (Parse.User.current().get('type')==='venue') urlBack = '#venue/home'
 
 
 
         return (
             <div id='profile'>
                 <div id="logOut">
-                    <a id="backLink" href={url}>Go Back Home</a>
+                    <a id="backLink" href={urlBack}>Go Back Home</a>
                 </div>
                 <div id='profileContent'>
                     <p>{name}</p>

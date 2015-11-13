@@ -39,7 +39,7 @@ var ConsumerView = React.createClass({
         }
     },
 
-	_handleKeyStroke: function() {
+	_handleKeyStroke: function(event) {
         var query = event.target.value,
             filteredArray = this.compArray.filter(function(comp){
                 return comp.contains(query)

@@ -75,6 +75,7 @@ var ProjectRouter = Backbone.Router.extend({
 
 	showAvailableEvents: function() {
 		var query = new Parse.Query(Event)
+
         document.querySelector('#container').innerHTML = `<img id='loading' src='./images/loading2.gif'>`
         query.descending('date')
 		query.find({
