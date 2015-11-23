@@ -61,7 +61,7 @@ var SignUp = React.createClass({
 	render: function() {
 		return (
 			<div id='usrPassContainer'>
-                <h2>Welcome To Symphony LinkUp</h2>
+                <h2>Welcome To Symphonic LinkUp</h2>
 				<p>First Time User? Sign Up Here!</p>
 				<div>
 					<input id='usrPass' type='text' placeholder='Enter Username' ref='username' onKeyPress={this._handleEnter}/>
@@ -116,7 +116,7 @@ var LogIn = React.createClass({
 	render: function() {
 		return (
 			<div id='usrPassContainer'>
-                <h2>Welcome To Symphony LinkUp!</h2>
+                <h2>Welcome To Symphonic LinkUp!</h2>
 				<p>Log In Here!</p>
 				<div>
 					<input id='usrPass' type='text' placeholder='Enter Username' ref='username'/>

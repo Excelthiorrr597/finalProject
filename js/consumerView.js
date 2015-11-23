@@ -91,14 +91,15 @@ var OptionsHolder = React.createClass({
             border: '2px solid grey',
             backgroundColor:'white',
             width: '200px'
-        },
-            url=`#consumer/search/${comp}`
+        }
+
         if (this.props.length < 1) styleObj={display:'none'}
         var compNquery = comp.split('_'),
             comp = compNquery[0],
             query = compNquery[1],
             comp1 = comp.slice(0,comp.indexOf(query)),
-            comp2 = comp.slice(comp.indexOf(query) + query.length)
+            comp2 = comp.slice(comp.indexOf(query) + query.length),
+            url = `#consumer/search/${comp}`
 
         var compNode = <a href={url}>{comp1}<strong>{query}</strong>{comp2}</a>
         return <div key={comp} style={styleObj} className="option">{compNode}</div>
